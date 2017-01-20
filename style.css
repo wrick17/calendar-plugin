@@ -1,0 +1,14 @@
+.calander-box {
+  width: 200px;
+}
+
+.week {
+  overflow: hidden;
+}
+
+.day {
+  display: inline-block;
+  float: left;
+  width: 14.28%;
+  text-align: center;
+}
