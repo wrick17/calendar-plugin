@@ -1,4 +1,32 @@
 (function($) {
+
+  var settings, el;
+
+  var month = {
+    1: 'january',
+    2: 'february',
+    3: 'march',
+    4: 'april',
+    5: 'may',
+    6: 'june',
+    7: 'july',
+    8: 'august',
+    9: 'sepetember',
+    10: 'october',
+    11: 'november',
+    12: 'december'
+  };
+
+  var day = {
+    0: 'sunday',
+    1: 'monday',
+    2: 'tuesday',
+    3: 'wednesday',
+    4: 'thursday',
+    5: 'friday',
+    6: 'saturday'
+  };
+
   function getFirstDayOfMonth(currentDate) {
     var thisDate = currentDate.getMonth() + 1 + ' 1 ' + currentDate.getFullYear();
     return new Date(thisDate);
@@ -90,50 +118,93 @@
     return monthData;
   }
 
-  function renderToDom(monthData, currentDate) {
+  function generateDomString(monthData, currentDate) {
     var calanderDump = '';
 
     calanderDump += '<div class="calander-box">';
 
-    monthData.forEach(function(week, weekNo) {
-      calanderDump += '<div class="week" data-week-no="'+ weekNo +'">';
+      calanderDump += '<button class="prev-button">Prev</button><span class="month-container"><span class="month">'+ month[(currentDate.getMonth() + 1)] +'</span><span class="year">'+ currentDate.getFullYear() +'</span></span><button class="next-button">Next</button>'
 
-        week.forEach(function(day, dayNo) {
-          calanderDump += '<div class="day" data-day="'+ day +'">'+ day.getDate() +'</div>';
-        });
+      calanderDump += '<div class="weeks-wrapper header">';
+        calanderDump += '<div class="week" data-week-no="'+ 0 +'">';
 
+        for (var weekDay in day) {
+          if (day.hasOwnProperty(weekDay)) {
+            calanderDump += '<div class="day header" data-day="'+ weekDay +'">'+ day[weekDay].substring(0, settings.weekDayLength) +'</div>';
+          }
+        }
+
+        calanderDump += '</div>';
       calanderDump += '</div>';
-    });
+
+      calanderDump += '<div class="weeks-wrapper">';
+      monthData.forEach(function(week, weekNo) {
+        calanderDump += '<div class="week" data-week-no="'+ weekNo+1 +'">';
+
+          week.forEach(function(day, dayNo) {
+            var disabled = false;
+            if (day.getMonth() !== currentDate.getMonth()) disabled = true;
+            disabled = disabled ? 'disabled' : '';
+
+            var highlight = false;
+            if (day.getDay() === currentDate.getDay()) highlight = true;
+            highlight = highlight ? 'highlight' : '';
+
+            var current = false;
+            if (day == currentDate.toString()) current = true;
+            current = current ? 'current' : '';
+
+            calanderDump += '<div class="day '+ highlight +' '+ disabled +' '+ current +'" data-day="'+ day +'">'+ day.getDate() +'</div>';
+          });
+
+        calanderDump += '</div>';
+      });
+      calanderDump += '</div>';
 
     calanderDump += '</div>';
 
     return calanderDump;
   }
 
-  $.fn.calander = function(options) {
-    // These are the defaults.
-    var settings = $.extend({
-        color: '#fd6721',
-        disabledColor: '#dadada',
-        backgroundColor: '#fff',
-        backgroundGray: '#f7f7f7',
-        date: '2017-02-01T00:00:00+05:30'
-    }, options );
-
-    $(this).append('<div>Oh Yeah Baby the plugin is working</div>');
-
-    var currentDate = new Date(settings.date);
-
-    console.log('current date', currentDate);
-
-    var day = currentDate.getDay();
-    var date = currentDate.getDate();
-    var month = currentDate.getMonth();
-    var year = currentDate.getFullYear();
+  function renderToDom(currentDate) {
 
     var monthData = generateMonthData(currentDate);
 
-    $('.calander-wrapper').html(renderToDom(monthData, currentDate));
+    el.html(generateDomString(monthData, currentDate));
+
+  }
+
+  $.fn.calander = function(options) {
+    // These are the defaults.
+    settings = $.extend({
+        date: '2017-02-01T00:00:00+05:30',
+        weekDayLength: 1
+    }, options );
+
+    el = $(this);
+
+    var currentDate = new Date(settings.date);
+
+    // console.log('current date', currentDate);
+
+    renderToDom(currentDate);
+
+    $('body').off('click', '.prev-button').on('click', '.prev-button', function(e) {
+      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+      // console.log(currentDate);
+      renderToDom(currentDate);
+    });
+
+    $('body').off('click', '.next-button').on('click', '.next-button', function(e) {
+      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+      // console.log(currentDate);
+      renderToDom(currentDate);
+    });
+
+    $('body').off('click', '.day').on('click', '.day', function(e) {
+      var date = $(this).data('day');
+      console.log(date);
+    });
 
     return this;
   }

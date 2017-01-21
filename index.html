@@ -6,24 +6,14 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="calander-wrapper">
-    <div class="calander-box">
-      <div class="week">
-        <div class="day">24</div>
-        <div class="day">24</div>
-        <div class="day">24</div>
-        <div class="day">24</div>
-        <div class="day">24</div>
-        <div class="day">24</div>
-        <div class="day">24</div>
-      </div>
-    </div>
-  </div>
+  <div class="calander-wrapper"></div>
   <script src="jquery.min.js"></script>
   <script src="calander.js"></script>
 
   <script type="text/javascript">
-  $('.calander-container').calander();
+    $('.calander-wrapper').calander({
+      weekDayLength: 1
+    });
   </script>
 
 </body>

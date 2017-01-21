@@ -1,5 +1,5 @@
 .calander-box {
-  width: 200px;
+
 }
 
 .week {
@@ -11,4 +11,17 @@
   float: left;
   width: 14.28%;
   text-align: center;
+  cursor: pointer;
+}
+
+.day.disabled {
+  color: #AAA;
+}
+
+.day.highlight {
+  color: red;
+}
+
+.day.current {
+  background: orange;
 }
