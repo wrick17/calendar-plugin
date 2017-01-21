@@ -12,6 +12,7 @@
   width: 14.28%;
   text-align: center;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .day.disabled {
@@ -22,6 +23,10 @@
   color: red;
 }
 
-.day.current {
+.day.selected {
   background: orange;
+}
+
+.day.today {
+  border: 1px solid green;
 }

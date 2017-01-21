@@ -1,6 +1,6 @@
 (function($) {
 
-  var settings, el;
+  var settings, el, selectedDate;
 
   var month = {
     1: 'january',
@@ -118,48 +118,72 @@
     return monthData;
   }
 
+  function generateMonthHeaderDOM(currentDate) {
+    return '<button class="prev-button">Prev</button><span class="month-container"><span class="month">'+ month[(currentDate.getMonth() + 1)] +'</span><span class="year">'+ currentDate.getFullYear() +'</span></span><button class="next-button">Next</button>';
+  }
+
+  function generateWeekHeaderDOM(currentDate) {
+    var str = '';
+    str += '<div class="weeks-wrapper header">';
+      str += '<div class="week" data-week-no="'+ 0 +'">';
+
+      for (var weekDay in day) {
+        if (day.hasOwnProperty(weekDay)) {
+          str += '<div class="day header" data-day="'+ weekDay +'">'+ day[weekDay].substring(0, settings.weekDayLength) +'</div>';
+        }
+      }
+
+      str += '</div>';
+    str += '</div>';
+    return str;
+  }
+
+  function generateWeekDOM(monthData, currentDate) {
+    var str = '';
+    str += '<div class="weeks-wrapper">';
+
+    monthData.forEach(function(week, weekNo) {
+      str += '<div class="week" data-week-no="'+ weekNo+1 +'">';
+
+        week.forEach(function(day, dayNo) {
+          var disabled = false;
+          if (day.getMonth() !== currentDate.getMonth()) disabled = true;
+          disabled = disabled ? 'disabled' : '';
+
+          var highlight = false;
+          if (day.getDay() === selectedDate.getDay() && day.getMonth() === selectedDate.getMonth() && day.getFullYear() === selectedDate.getFullYear()) highlight = true;
+          highlight = highlight ? 'highlight' : '';
+
+          var selected = false;
+          if (day == selectedDate.toString()) selected = true;
+          selected = selected ? 'selected' : '';
+
+          var today = false;
+          var todayDate = new Date();
+          todayDate.setHours(0,0,0,0);
+          console.log(day, todayDate);
+          if (day == todayDate.toString()) today = true;
+          today = today ? 'today' : '';
+
+          str += '<div class="day '+ highlight +' '+ disabled +' '+ selected +' '+ today +'" data-day="'+ day +'">'+ day.getDate() +'</div>';
+        });
+
+      str += '</div>';
+    });
+    str += '</div>';
+    return str;
+  }
+
   function generateDomString(monthData, currentDate) {
     var calanderDump = '';
 
     calanderDump += '<div class="calander-box">';
 
-      calanderDump += '<button class="prev-button">Prev</button><span class="month-container"><span class="month">'+ month[(currentDate.getMonth() + 1)] +'</span><span class="year">'+ currentDate.getFullYear() +'</span></span><button class="next-button">Next</button>'
+      calanderDump += generateMonthHeaderDOM(currentDate);
 
-      calanderDump += '<div class="weeks-wrapper header">';
-        calanderDump += '<div class="week" data-week-no="'+ 0 +'">';
+      calanderDump += generateWeekHeaderDOM(currentDate);
 
-        for (var weekDay in day) {
-          if (day.hasOwnProperty(weekDay)) {
-            calanderDump += '<div class="day header" data-day="'+ weekDay +'">'+ day[weekDay].substring(0, settings.weekDayLength) +'</div>';
-          }
-        }
-
-        calanderDump += '</div>';
-      calanderDump += '</div>';
-
-      calanderDump += '<div class="weeks-wrapper">';
-      monthData.forEach(function(week, weekNo) {
-        calanderDump += '<div class="week" data-week-no="'+ weekNo+1 +'">';
-
-          week.forEach(function(day, dayNo) {
-            var disabled = false;
-            if (day.getMonth() !== currentDate.getMonth()) disabled = true;
-            disabled = disabled ? 'disabled' : '';
-
-            var highlight = false;
-            if (day.getDay() === currentDate.getDay()) highlight = true;
-            highlight = highlight ? 'highlight' : '';
-
-            var current = false;
-            if (day == currentDate.toString()) current = true;
-            current = current ? 'current' : '';
-
-            calanderDump += '<div class="day '+ highlight +' '+ disabled +' '+ current +'" data-day="'+ day +'">'+ day.getDate() +'</div>';
-          });
-
-        calanderDump += '</div>';
-      });
-      calanderDump += '</div>';
+      calanderDump += generateWeekDOM(monthData, currentDate);
 
     calanderDump += '</div>';
 
@@ -183,7 +207,8 @@
 
     el = $(this);
 
-    var currentDate = new Date(settings.date);
+    selectedDate = new Date(settings.date);
+    var currentDate = selectedDate;
 
     // console.log('current date', currentDate);
 
