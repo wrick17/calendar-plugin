@@ -161,7 +161,6 @@
           var today = false;
           var todayDate = new Date();
           todayDate.setHours(0,0,0,0);
-          console.log(day, todayDate);
           if (day == todayDate.toString()) today = true;
           today = today ? 'today' : '';
 
