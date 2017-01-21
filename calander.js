@@ -47,53 +47,46 @@
   }
 
   function generateWeekData(currentDate, weekNo) {
-    var firstDay = getFirstDayOfMonth(currentDate).getDate();
-    var lastDay = getLastDayOfMonth(currentDate).getDate();
+    var firstDay = getFirstDayOfMonth(currentDate);
+    var firstDayDate = firstDay.getDate();
+    var lastDay = getLastDayOfMonth(currentDate);
+    var lastDayDate = lastDay.getDate();
     var lastDayFromLastMonth = getLastMonthLastDay(currentDate).getDate();
     var days = [];
 
-    var weekDay = currentDate.getDay();
+    var weekDay = firstDay.getDay();
     var daysFromLastMonth = (weekDay);
     var daysFromNextMonth = 1;
 
     if (weekDay === 0) daysFromLastMonth = 0;
 
     if (weekNo === 1) {
+
       for (var dayFromLastMonth = (daysFromLastMonth-1); dayFromLastMonth >= 0; dayFromLastMonth--) {
         if (currentDate.getMonth())
         var dateObj = new Date((currentDate.getFullYear()), (currentDate.getMonth() - 1), (lastDayFromLastMonth - dayFromLastMonth) );
         days.push(dateObj);
-        // days.push({
-        //   date: lastDayFromLastMonth - dayFromLastMonth,
-        //   month: -1
-        // });
       }
+
       var daysLength = 7 - days.length;
       for (var monthDate = 0; monthDate < daysLength; monthDate++) {
-        var dateObj = new Date((currentDate.getFullYear()), (currentDate.getMonth()), (firstDay + monthDate) );
+        var dateObj = new Date((firstDay.getFullYear()), (firstDay.getMonth()), (firstDayDate + monthDate) );
         days.push(dateObj);
-        // days.push({
-        //   date: firstDay + monthDate,
-        //   month: 0
-        // });
       }
+
     } else {
+
       var startWeekFrom = (weekNo * 7) - daysFromLastMonth;
       for (var i = 1; i <= 7; i++) {
+
         if ((startWeekFrom + i) <= lastDay) {
           var dateObj = new Date((currentDate.getFullYear()), (currentDate.getMonth()), (startWeekFrom + i) );
           days.push(dateObj);
-          // days.push({
-          //   date: startWeekFrom + i,
-          //   month: 0
-          // });
+
         } else {
+
           var dateObj = new Date((currentDate.getFullYear()), (currentDate.getMonth() + 1), (daysFromNextMonth++) );
           days.push(dateObj);
-          // days.push({
-          //   date: daysFromNextMonth++,
-          //   month: 1
-          // });
         }
       }
     }
@@ -119,7 +112,20 @@
   }
 
   function generateMonthHeaderDOM(currentDate) {
-    return '<button class="prev-button">Prev</button><span class="month-container"><span class="month">'+ month[(currentDate.getMonth() + 1)] +'</span><span class="year">'+ currentDate.getFullYear() +'</span></span><button class="next-button">Next</button>';
+    return ''+
+      '<div class="buttons-container">'+
+        '<button class="prev-button">'+ settings.prevButton +'</button>'+
+        '<span class="month-container">'+
+          '<span class="month">'+
+            month[(currentDate.getMonth() + 1)] +
+          '</span>'+
+          settings.monthYearSeparator+
+          '<span class="year">'+
+          currentDate.getFullYear() +
+          '</span>'+
+        '</span>'+
+        '<button class="next-button">'+ settings.nextButton +'</button>'+
+      '</div>';
   }
 
   function generateWeekHeaderDOM(currentDate) {
@@ -143,16 +149,16 @@
     str += '<div class="weeks-wrapper">';
 
     monthData.forEach(function(week, weekNo) {
-      str += '<div class="week" data-week-no="'+ weekNo+1 +'">';
+      str += '<div class="week" data-week-no="'+ (weekNo+1) +'">';
 
         week.forEach(function(day, dayNo) {
           var disabled = false;
           if (day.getMonth() !== currentDate.getMonth()) disabled = true;
           disabled = disabled ? 'disabled' : '';
 
-          var highlight = false;
-          if (day.getDay() === selectedDate.getDay() && day.getMonth() === selectedDate.getMonth() && day.getFullYear() === selectedDate.getFullYear()) highlight = true;
-          highlight = highlight ? 'highlight' : '';
+          // var highlight = false;
+          // if (day.getDay() === selectedDate.getDay() && day.getMonth() === selectedDate.getMonth() && day.getFullYear() === selectedDate.getFullYear()) highlight = true;
+          // highlight = highlight ? 'highlight' : '';
 
           var selected = false;
           if (day == selectedDate.toString()) selected = true;
@@ -164,7 +170,7 @@
           if (day == todayDate.toString()) today = true;
           today = today ? 'today' : '';
 
-          str += '<div class="day '+ highlight +' '+ disabled +' '+ selected +' '+ today +'" data-day="'+ day +'">'+ day.getDate() +'</div>';
+          str += '<div class="day '+ disabled +' '+ selected +' '+ today +'" data-date="'+ day +'">'+ day.getDate() +'</div>';
         });
 
       str += '</div>';
@@ -189,19 +195,40 @@
     return calanderDump;
   }
 
+  function highlightDays() {
+    var selectedElement = el.find('.selected');
+
+    if (selectedElement.length > 0) {
+      var date = new Date(selectedElement.data('date'));
+      var weekDayNo = date.getDay();
+
+      // console.log(weekDayNo);
+
+      el.find('.week').each(function(i, elm) {
+        $(elm).find('.day:eq('+(weekDayNo - 0)+')').addClass('highlight');
+      });
+    }
+  }
+
   function renderToDom(currentDate) {
 
     var monthData = generateMonthData(currentDate);
 
     el.html(generateDomString(monthData, currentDate));
 
+    highlightDays();
+
   }
 
   $.fn.calander = function(options) {
     // These are the defaults.
     settings = $.extend({
-        date: '2017-02-01T00:00:00+05:30',
-        weekDayLength: 1
+        date: '2017-02-21T00:00:00+05:30',
+        weekDayLength: 1,
+        prevButton: '<',
+        nextButton: '>',
+        monthYearSeparator: ' ',
+        onClickDate: function(){} 
     }, options );
 
     el = $(this);
@@ -226,8 +253,8 @@
     });
 
     $('body').off('click', '.day').on('click', '.day', function(e) {
-      var date = $(this).data('day');
-      console.log(date);
+      var date = $(this).data('date');
+      settings.onClickDate(date);
     });
 
     return this;
