@@ -19,8 +19,9 @@
     onClickYearPrev: function(date){},
     onClickYearView: function(date){},
     enableMonthChange: true,
-    enableMonthSelect: true,
-    showTodayButton: true
+    enableYearView: true,
+    showTodayButton: true,
+    todayButtonContent: 'Today'
   }
   var el, selectedDate, yearView = false;
 
@@ -130,17 +131,17 @@
   }
 
   function generateTodayButton() {
-    return '<button class="today-button">Today</button>'
+    return '<button class="today-button">'+ settings.todayButtonContent +'</button>'
   }
 
   function generateYearHeaderDOM(currentDate) {
     return ''+
       '<div class="buttons-container">'+
-        ((settings.enableMonthChange && settings.enableMonthSelect) ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
+        ((settings.enableMonthChange && settings.enableYearView) ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
         '<span class="year-label">'+
         currentDate.getFullYear() +
         '</span>'+
-        ((settings.enableMonthChange && settings.enableMonthSelect) ? '<button class="next-button">'+ settings.nextButton +'</button>' : '')+
+        ((settings.enableMonthChange && settings.enableYearView) ? '<button class="next-button">'+ settings.nextButton +'</button>' : '')+
       '</div>';
   }
 
@@ -222,37 +223,37 @@
   }
 
   function generateDomString(monthData, currentDate) {
-    var calanderDump = '';
+    var calendarDump = '';
 
-    calanderDump += '<div class="calander-box">';
+    calendarDump += '<div class="calendar-box">';
 
       if (yearView) {
-        calanderDump += '<div class="months-container">';
+        calendarDump += '<div class="months-container">';
 
-        calanderDump += generateYearHeaderDOM(currentDate);
+        calendarDump += generateYearHeaderDOM(currentDate);
 
-        calanderDump += generateMonthDOM(currentDate);
+        calendarDump += generateMonthDOM(currentDate);
 
-        calanderDump += '</div>';
+        calendarDump += '</div>';
       } else {
-        calanderDump += '<div class="weeks-container">';
+        calendarDump += '<div class="weeks-container">';
 
-        calanderDump += generateMonthHeaderDOM(currentDate);
+        calendarDump += generateMonthHeaderDOM(currentDate);
 
-        calanderDump += generateWeekHeaderDOM(currentDate);
+        calendarDump += generateWeekHeaderDOM(currentDate);
 
-        calanderDump += generateWeekDOM(monthData, currentDate);
+        calendarDump += generateWeekDOM(monthData, currentDate);
 
-        calanderDump += '</div>';
+        calendarDump += '</div>';
       }
 
       if (settings.showTodayButton) {
-        calanderDump += generateTodayButton();
+        calendarDump += generateTodayButton();
       }
 
-    calanderDump += '</div>';
+    calendarDump += '</div>';
 
-    return calanderDump;
+    return calendarDump;
   }
 
   function highlightDays() {
@@ -278,7 +279,7 @@
 
   }
 
-  $.fn.calander = function(options) {
+  $.fn.calendar = function(options) {
     settings = $.extend(settings, options);
 
     el = $(this);
@@ -287,6 +288,7 @@
       selectedDate = new Date(settings.date);
     else
       selectedDate = settings.date;
+    selectedDate.setHours(0,0,0,0);
     var currentDate = selectedDate;
 
 
@@ -313,9 +315,10 @@
       settings.onClickDate(date);
     });
 
-    if (settings.enableMonthChange && settings.enableMonthSelect) {
+    if (settings.enableMonthChange && settings.enableYearView) {
       el.off('click', '.month-container').on('click', '.month-container', function(e) {
         yearView = true;
+        currentDate = new Date(currentDate.getFullYear(), 0, 1);
         settings.onClickYearView(currentDate);
         renderToDom(currentDate);
       });
