@@ -112,23 +112,23 @@ Type of each option followd by the description of each of the options...
 
 
 `threeMonthsInARow` - **Boolean**
-> Defaults to **true**. If set it **false**, then months will come four in a row in year view.
+> Defaults to **true**. If set to **false**, then months will come four in a row in year view.
 
 
 `enableMonthChange` - **Boolean**
-> Defaults to **true**. If set it **false**, then you won't be able to change either month or year.
+> Defaults to **true**. If set to **false**, then you won't be able to change either month or year.
 
 
 `enableYearView` - **Boolean**
-> Defaults to **true**. If set it **false**, then you won't be able to go to the year view. You can only change the month using the next or previous buttons in the month view.
+> Defaults to **true**. If set to **false**, then you won't be able to go to the year view. You can only change the month using the next or previous buttons in the month view.
 
 
 `showTodayButton` - **Boolean**
-> Defaults to **true**. If set it **false**, then the today button won't be visible.
+> Defaults to **true**. If set to **false**, then the today button won't be visible.
 
 
 `highlightSelectedWeekday` - **Boolean**
-> Defaults to **true**. If set it **false**, then the selected date week day won't be highlighted.
+> Defaults to **true**. If set to **false**, then the selected date week day won't be highlighted.
 
 
 `todayButtonContent` - **String**
