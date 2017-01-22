@@ -16,10 +16,24 @@
   <script src="calendar.js"></script>
 
   <script type="text/javascript">
-    $('.calendar-wrapper').calendar({
-      weekDayLength: 1,
-      date: '01/11/2017'
-    });
+
+    (function() {
+
+      function selectDate(date) {
+        $('.calendar-wrapper').calendar({
+          weekDayLength: 1,
+          date: date,
+          onClickDate: selectDate
+        });
+      }
+
+      $('.calendar-wrapper').calendar({
+        weekDayLength: 1,
+        date: '01/11/2017',
+        onClickDate: selectDate
+      });
+    })();
+
   </script>
 
 </body>
