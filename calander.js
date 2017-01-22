@@ -1,8 +1,30 @@
 (function($) {
 
-  var settings, el, selectedDate;
+  var todayDate = new Date();
+  todayDate.setHours(0,0,0,0);
 
-  var month = {
+  // These are the defaults.
+  var settings = {
+    date: todayDate,
+    weekDayLength: 1,
+    prevButton: 'Prev',
+    nextButton: 'Next',
+    monthYearSeparator: ' ',
+    onClickDate: function(date){},
+    onClickMonth: function(date){},
+    onClickToday: function(date){},
+    onClickMonthNext: function(date){},
+    onClickMonthPrev: function(date){},
+    onClickYearNext: function(date){},
+    onClickYearPrev: function(date){},
+    onClickYearView: function(date){},
+    enableMonthChange: true,
+    enableMonthSelect: true,
+    showTodayButton: true
+  }
+  var el, selectedDate, yearView = false;
+
+  var monthMap = {
     1: 'january',
     2: 'february',
     3: 'march',
@@ -17,7 +39,7 @@
     12: 'december'
   };
 
-  var day = {
+  var dayMap = {
     0: 'sunday',
     1: 'monday',
     2: 'tuesday',
@@ -58,13 +80,10 @@
     var daysFromLastMonth = (weekDay);
     var daysFromNextMonth = 1;
 
-    if (weekDay === 0) daysFromLastMonth = 0;
-
     if (weekNo === 1) {
 
       for (var dayFromLastMonth = (daysFromLastMonth-1); dayFromLastMonth >= 0; dayFromLastMonth--) {
-        if (currentDate.getMonth())
-        var dateObj = new Date((currentDate.getFullYear()), (currentDate.getMonth() - 1), (lastDayFromLastMonth - dayFromLastMonth) );
+        var dateObj = new Date((currentDate.getFullYear()), (currentDate.getMonth() - 1), (lastDayFromLastMonth - dayFromLastMonth));
         days.push(dateObj);
       }
 
@@ -90,7 +109,6 @@
         }
       }
     }
-    // console.log(days);
     return days;
   }
 
@@ -111,20 +129,49 @@
     return monthData;
   }
 
+  function generateTodayButton() {
+    return '<button class="today-button">Today</button>'
+  }
+
+  function generateYearHeaderDOM(currentDate) {
+    return ''+
+      '<div class="buttons-container">'+
+        ((settings.enableMonthChange && settings.enableMonthSelect) ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
+        '<span class="year-label">'+
+        currentDate.getFullYear() +
+        '</span>'+
+        ((settings.enableMonthChange && settings.enableMonthSelect) ? '<button class="next-button">'+ settings.nextButton +'</button>' : '')+
+      '</div>';
+  }
+
+  function generateMonthDOM(currentDate) {
+    var str = '';
+    str += '<div class="months-wrapper">';
+
+    for (var month in monthMap) {
+      if (monthMap.hasOwnProperty(month)) {
+        str += '<span class="month" data-month="'+ month +'" data-year="'+ currentDate.getFullYear() +'">'+ monthMap[month] +'</span>';
+      }
+    }
+
+    str += '</div>';
+    return str;
+  }
+
   function generateMonthHeaderDOM(currentDate) {
     return ''+
       '<div class="buttons-container">'+
-        '<button class="prev-button">'+ settings.prevButton +'</button>'+
+        (settings.enableMonthChange ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
         '<span class="month-container">'+
-          '<span class="month">'+
-            month[(currentDate.getMonth() + 1)] +
+          '<span class="month-label">'+
+            monthMap[(currentDate.getMonth() + 1)] +
           '</span>'+
           settings.monthYearSeparator+
-          '<span class="year">'+
+          '<span class="year-label">'+
           currentDate.getFullYear() +
           '</span>'+
         '</span>'+
-        '<button class="next-button">'+ settings.nextButton +'</button>'+
+        (settings.enableMonthChange ? '<button class="next-button">'+ settings.nextButton +'</button>' : '')+
       '</div>';
   }
 
@@ -133,9 +180,9 @@
     str += '<div class="weeks-wrapper header">';
       str += '<div class="week" data-week-no="'+ 0 +'">';
 
-      for (var weekDay in day) {
-        if (day.hasOwnProperty(weekDay)) {
-          str += '<div class="day header" data-day="'+ weekDay +'">'+ day[weekDay].substring(0, settings.weekDayLength) +'</div>';
+      for (var weekDay in dayMap) {
+        if (dayMap.hasOwnProperty(weekDay)) {
+          str += '<div class="day header" data-day="'+ weekDay +'">'+ dayMap[weekDay].substring(0, settings.weekDayLength) +'</div>';
         }
       }
 
@@ -156,17 +203,12 @@
           if (day.getMonth() !== currentDate.getMonth()) disabled = true;
           disabled = disabled ? 'disabled' : '';
 
-          // var highlight = false;
-          // if (day.getDay() === selectedDate.getDay() && day.getMonth() === selectedDate.getMonth() && day.getFullYear() === selectedDate.getFullYear()) highlight = true;
-          // highlight = highlight ? 'highlight' : '';
-
           var selected = false;
           if (day == selectedDate.toString()) selected = true;
           selected = selected ? 'selected' : '';
 
           var today = false;
-          var todayDate = new Date();
-          todayDate.setHours(0,0,0,0);
+
           if (day == todayDate.toString()) today = true;
           today = today ? 'today' : '';
 
@@ -184,11 +226,29 @@
 
     calanderDump += '<div class="calander-box">';
 
-      calanderDump += generateMonthHeaderDOM(currentDate);
+      if (yearView) {
+        calanderDump += '<div class="months-container">';
 
-      calanderDump += generateWeekHeaderDOM(currentDate);
+        calanderDump += generateYearHeaderDOM(currentDate);
 
-      calanderDump += generateWeekDOM(monthData, currentDate);
+        calanderDump += generateMonthDOM(currentDate);
+
+        calanderDump += '</div>';
+      } else {
+        calanderDump += '<div class="weeks-container">';
+
+        calanderDump += generateMonthHeaderDOM(currentDate);
+
+        calanderDump += generateWeekHeaderDOM(currentDate);
+
+        calanderDump += generateWeekDOM(monthData, currentDate);
+
+        calanderDump += '</div>';
+      }
+
+      if (settings.showTodayButton) {
+        calanderDump += generateTodayButton();
+      }
 
     calanderDump += '</div>';
 
@@ -201,8 +261,6 @@
     if (selectedElement.length > 0) {
       var date = new Date(selectedElement.data('date'));
       var weekDayNo = date.getDay();
-
-      // console.log(weekDayNo);
 
       el.find('.week').each(function(i, elm) {
         $(elm).find('.day:eq('+(weekDayNo - 0)+')').addClass('highlight');
@@ -221,41 +279,81 @@
   }
 
   $.fn.calander = function(options) {
-    // These are the defaults.
-    settings = $.extend({
-        date: '2017-02-21T00:00:00+05:30',
-        weekDayLength: 1,
-        prevButton: '<',
-        nextButton: '>',
-        monthYearSeparator: ' ',
-        onClickDate: function(){} 
-    }, options );
+    settings = $.extend(settings, options);
 
     el = $(this);
 
-    selectedDate = new Date(settings.date);
+    if (typeof settings.date === 'string')
+      selectedDate = new Date(settings.date);
+    else
+      selectedDate = settings.date;
     var currentDate = selectedDate;
 
-    // console.log('current date', currentDate);
 
     renderToDom(currentDate);
 
-    $('body').off('click', '.prev-button').on('click', '.prev-button', function(e) {
-      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
-      // console.log(currentDate);
-      renderToDom(currentDate);
-    });
+    if (settings.enableMonthChange) {
 
-    $('body').off('click', '.next-button').on('click', '.next-button', function(e) {
-      currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
-      // console.log(currentDate);
-      renderToDom(currentDate);
-    });
+      el.off('click', '.weeks-container .prev-button').on('click', '.weeks-container .prev-button', function(e) {
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+        settings.onClickMonthPrev(currentDate);
+        renderToDom(currentDate);
+      });
 
-    $('body').off('click', '.day').on('click', '.day', function(e) {
+      el.off('click', '.weeks-container .next-button').on('click', '.weeks-container .next-button', function(e) {
+        currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+        settings.onClickMonthNext(currentDate);
+        renderToDom(currentDate);
+      });
+
+    }
+
+    el.off('click', '.day').on('click', '.day', function(e) {
       var date = $(this).data('date');
       settings.onClickDate(date);
     });
+
+    if (settings.enableMonthChange && settings.enableMonthSelect) {
+      el.off('click', '.month-container').on('click', '.month-container', function(e) {
+        yearView = true;
+        settings.onClickYearView(currentDate);
+        renderToDom(currentDate);
+      });
+
+      el.off('click', '.months-container .month').on('click', '.months-container .month', function(e) {
+        var monthEl = $(this);
+        var month = monthEl.data('month');
+        var year = monthEl.data('year');
+        var selectedMonth = new Date(year, (month-1), 1);
+        settings.onClickMonth(selectedMonth);
+
+        currentDate = selectedMonth;
+        yearView = false;
+
+        renderToDom(currentDate);
+      });
+
+      el.off('click', '.months-container .prev-button').on('click', '.months-container .prev-button', function(e) {
+        currentDate = new Date(currentDate.getFullYear() - 1, 0, 1);
+        settings.onClickYearPrev(currentDate);
+        renderToDom(currentDate);
+      });
+
+      el.off('click', '.months-container .next-button').on('click', '.months-container .next-button', function(e) {
+        currentDate = new Date(currentDate.getFullYear() + 1, 0, 1);
+        settings.onClickMonthNext(currentDate);
+        renderToDom(currentDate);
+      });
+    }
+
+    if (settings.showTodayButton) {
+      el.off('click', '.today-button').on('click', '.today-button', function(e) {
+        currentDate = todayDate;
+        settings.onClickToday(todayDate);
+        yearView = false;
+        renderToDom(currentDate);
+      })
+    }
 
     return this;
   }

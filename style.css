@@ -2,8 +2,22 @@
 
 }
 
+.buttons-container {
+  cursor: pointer;
+}
+
 .week {
   overflow: hidden;
+}
+
+/* weekend */
+.week .day:first-child, .week .day:last-child {
+  color: orange;
+}
+
+/* sunday */
+.week .day:first-child {
+  color: red;
 }
 
 .day {
@@ -19,8 +33,9 @@
   color: #AAA;
 }
 
-.day.highlight {
-  color: red;
+/* vertical highlight */
+.week .day.highlight {
+  color: blue;
 }
 
 .day.selected {
@@ -29,4 +44,20 @@
 
 .day.today {
   border: 1px solid green;
+}
+
+.months-container.hidden, .weeks-container.hidden {
+  display: none;
+}
+
+.months-wrapper {
+  overflow: hidden;
+}
+
+.months-wrapper .month {
+  display: inline-block;
+  float: left;
+  width: 25%;
+  text-align: center;
+  cursor: pointer;
 }
