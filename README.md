@@ -106,6 +106,10 @@ Type of each option followd by the description of each of the options...
 > The function that is called when you click on the month header in the month view. The first day of the first month of the current year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
+`threeMonthsInARow` - **Boolean**
+> Defaults to **true**. If set it **false**, then months will come four in a row in year view.
+
+
 `enableMonthChange` - **Boolean**
 > Defaults to **true**. If set it **false**, then you won't be able to change either month or year.
 
@@ -116,6 +120,10 @@ Type of each option followd by the description of each of the options...
 
 `showTodayButton` - **Boolean**
 > Defaults to **true**. If set it **false**, then the today button won't be visible.
+
+
+`highlightSelectedWeekday` - **Boolean**
+> Defaults to **true**. If set it **false**, then the selected date week day won't be highlighted.
 
 
 `todayButtonContent` - **String**

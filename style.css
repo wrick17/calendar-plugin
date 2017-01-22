@@ -29,21 +29,21 @@
   box-sizing: border-box;
 }
 
-.day.disabled {
+.day.disabled span {
   color: #AAA;
 }
 
 /* vertical highlight */
-.week .day.highlight {
+.week .day.highlight span {
   color: blue;
 }
 
-.day.selected {
+.day.selected span {
   background: orange;
 }
 
-.day.today {
-  border: 1px solid green;
+.day.today span {
+  font-weight: bold;
 }
 
 .months-container.hidden, .weeks-container.hidden {
@@ -60,4 +60,7 @@
   width: 25%;
   text-align: center;
   cursor: pointer;
+}
+.months-wrapper .month.one-third {
+  width: 33.33%;
 }

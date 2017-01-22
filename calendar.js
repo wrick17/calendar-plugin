@@ -5,7 +5,7 @@
 
   // These are the defaults.
   var settings = {
-    date: todayDate,
+    date: undefined,
     weekDayLength: 1,
     prevButton: 'Prev',
     nextButton: 'Next',
@@ -18,9 +18,11 @@
     onClickYearNext: function(date){},
     onClickYearPrev: function(date){},
     onClickYearView: function(date){},
+    threeMonthsInARow: true,
     enableMonthChange: true,
     enableYearView: true,
     showTodayButton: true,
+    highlightSelectedWeekday: true,
     todayButtonContent: 'Today'
   }
   var el, selectedDate, yearView = false;
@@ -131,14 +133,17 @@
   }
 
   function generateTodayButton() {
-    return '<button class="today-button">'+ settings.todayButtonContent +'</button>'
+    return ''+
+      '<div class="special-buttons">'+
+        '<button class="today-button">'+ settings.todayButtonContent +'</button>'+
+      '</div>';
   }
 
   function generateYearHeaderDOM(currentDate) {
     return ''+
       '<div class="buttons-container">'+
         ((settings.enableMonthChange && settings.enableYearView) ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
-        '<span class="year-label">'+
+        '<span class="label-container year-label">'+
         currentDate.getFullYear() +
         '</span>'+
         ((settings.enableMonthChange && settings.enableYearView) ? '<button class="next-button">'+ settings.nextButton +'</button>' : '')+
@@ -151,7 +156,9 @@
 
     for (var month in monthMap) {
       if (monthMap.hasOwnProperty(month)) {
-        str += '<span class="month" data-month="'+ month +'" data-year="'+ currentDate.getFullYear() +'">'+ monthMap[month] +'</span>';
+        var threeMonthsInARow = '';
+        threeMonthsInARow = settings.threeMonthsInARow ? ' one-third' : '';
+        str += '<span class="month'+ threeMonthsInARow +'" data-month="'+ month +'" data-year="'+ currentDate.getFullYear() +'"><span>'+ monthMap[month] +'</span></span>';
       }
     }
 
@@ -163,7 +170,7 @@
     return ''+
       '<div class="buttons-container">'+
         (settings.enableMonthChange ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
-        '<span class="month-container">'+
+        '<span class="label-container month-container">'+
           '<span class="month-label">'+
             monthMap[(currentDate.getMonth() + 1)] +
           '</span>'+
@@ -202,18 +209,22 @@
         week.forEach(function(day, dayNo) {
           var disabled = false;
           if (day.getMonth() !== currentDate.getMonth()) disabled = true;
-          disabled = disabled ? 'disabled' : '';
+          disabled = disabled ? ' disabled' : '';
 
           var selected = false;
-          if (day == selectedDate.toString()) selected = true;
-          selected = selected ? 'selected' : '';
+          if (selectedDate) {
+            if (day == selectedDate.toString()) selected = true;
+            selected = selected ? ' selected' : '';
+          } else {
+            selected = '';
+          }
 
           var today = false;
 
           if (day == todayDate.toString()) today = true;
-          today = today ? 'today' : '';
+          today = today ? ' today' : '';
 
-          str += '<div class="day '+ disabled +' '+ selected +' '+ today +'" data-date="'+ day +'">'+ day.getDate() +'</div>';
+          str += '<div class="day'+ disabled + selected + today +'" data-date="'+ day +'"><span>'+ day.getDate() +'</span></div>';
         });
 
       str += '</div>';
@@ -275,7 +286,9 @@
 
     el.html(generateDomString(monthData, currentDate));
 
-    highlightDays();
+    if (settings.highlightSelectedWeekday) {
+      highlightDays();
+    }
 
   }
 
@@ -284,12 +297,20 @@
 
     el = $(this);
 
-    if (typeof settings.date === 'string')
-      selectedDate = new Date(settings.date);
-    else
-      selectedDate = settings.date;
-    selectedDate.setHours(0,0,0,0);
-    var currentDate = selectedDate;
+    var currentDate;
+
+    if (settings.date) {
+      if (typeof settings.date === 'string') {
+        selectedDate = new Date(settings.date);
+      }
+      else {
+        selectedDate = settings.date;
+      }
+      selectedDate.setHours(0,0,0,0);
+      currentDate = selectedDate;
+    } else {
+      currentDate = todayDate;
+    }
 
 
     renderToDom(currentDate);

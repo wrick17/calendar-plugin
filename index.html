@@ -4,15 +4,21 @@
   <meta charset="utf-8">
   <title>Calander</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="theme.css">
+  <meta name="viewport" content="width=device-width">
 </head>
 <body>
+  <h1>Calendar Plugin Demo</h1>
   <div class="calendar-wrapper"></div>
+  <footer>made with ♥ by <a target="_blank" href="https://github.com/wrick17">wrick17</a>. Check out the code in <a target="_blank" href="https://github.com/wrick17/calendar-plugin">github</a></footer>
+
   <script src="jquery.min.js"></script>
   <script src="calendar.js"></script>
 
   <script type="text/javascript">
     $('.calendar-wrapper').calendar({
-      weekDayLength: 1
+      weekDayLength: 1,
+      date: '01/24/2017'
     });
   </script>
 
