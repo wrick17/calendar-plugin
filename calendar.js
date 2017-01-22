@@ -98,7 +98,7 @@
 
     } else {
 
-      var startWeekFrom = (weekNo * 7) - daysFromLastMonth;
+      var startWeekFrom = ((weekNo-1) * 7) - daysFromLastMonth;
       for (var i = 1; i <= 7; i++) {
 
         if ((startWeekFrom + i) <= lastDay) {
@@ -119,14 +119,16 @@
     var firstDay = getFirstDayOfMonth(currentDate);
     var lastMonthLast = getLastDayOfMonth(currentDate).getDate();
     var lastDayFromMonth = getLastDayOfMonth(currentDate).getDate();
-    var weeks = parseInt(lastMonthLast / 7);
+    var weeks = parseInt(lastMonthLast / 7) + 1;
 
     var monthData = [];
     for (var weekNo = 1; weekNo <= weeks; weekNo++) {
       monthData.push(generateWeekData(currentDate, weekNo));
     }
     var lastBlock = monthData[monthData.length - 1];
-    if (lastBlock[lastBlock.length - 1].date < lastDayFromMonth) {
+    var lastDayInBlock = lastBlock[lastBlock.length - 1].getDate();
+
+    if ((lastDayInBlock < lastDayFromMonth) && ((lastDayFromMonth - lastDayInBlock) < 7)) {
       monthData.push(generateWeekData(currentDate, weekNo));
     }
     return monthData;
