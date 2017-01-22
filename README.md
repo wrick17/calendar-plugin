@@ -19,7 +19,7 @@ Then call the calendar function on the element inside which you want your calend
 ```
 $('.calendar-wrapper').calendar();
 ```
-To use the optoinal plugins pass them as options:
+To use the optoinal features pass the parameters as options:
 ```
 $('.calendar-wrapper').calendar({
   date: '05/21/2017',
