@@ -33,7 +33,7 @@ Most of the code is pretty self explanatory.
 Default options go as below:
 ```
 var options = {
-  date: new Date(),
+  date: undefined,
   weekDayLength: 1,
   prevButton: 'Prev',
   nextButton: 'Next',
@@ -46,9 +46,12 @@ var options = {
   onClickYearNext: function(date){},
   onClickYearPrev: function(date){},
   onClickYearView: function(date){},
+  threeMonthsInARow: true,
   enableMonthChange: true,
-  enableMonthSelect: true,
-  showTodayButton: true
+  enableYearView: true,
+  showTodayButton: true,
+  highlightSelectedWeekday: true,
+  todayButtonContent: 'Today'
 }
 ```
 
