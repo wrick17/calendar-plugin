@@ -18,12 +18,14 @@
     onClickYearNext: function(date){},
     onClickYearPrev: function(date){},
     onClickYearView: function(date){},
+    onYearSelect: function(date){},
     threeMonthsInARow: true,
     enableMonthChange: true,
     enableYearView: true,
     showTodayButton: true,
     highlightSelectedWeekday: true,
-    todayButtonContent: 'Today'
+    todayButtonContent: 'Today',
+    showYearDropdown: true
   }
   var el, selectedDate, yearView = false;
 
@@ -142,14 +144,29 @@
   }
 
   function generateYearHeaderDOM(currentDate) {
-    return ''+
-      '<div class="buttons-container">'+
-        ((settings.enableMonthChange && settings.enableYearView) ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
-        '<span class="label-container year-label">'+
-        currentDate.getFullYear() +
-        '</span>'+
-        ((settings.enableMonthChange && settings.enableYearView) ? '<button class="next-button">'+ settings.nextButton +'</button>' : '')+
-      '</div>';
+    var str = ''+
+        '<div class="buttons-container">'+
+          ((settings.enableMonthChange && settings.enableYearView) ? '<button class="prev-button">'+ settings.prevButton +'</button>' : '')+
+          '<span class="label-container year-label">';
+    if (settings.showYearDropdown) {
+      str +=  ''+
+              '<select class="year-dropdown">';
+      for (var i = 1970; i < 2117; i++) {
+        if (i === currentDate.getFullYear()) {
+          str += '<option selected="selected" value="'+ i +'">'+ i +'</option>';
+        } else {
+          str += '<option value="'+ i +'">'+ i +'</option>';
+        }
+      }
+      str += '</select>';
+
+    } else {
+      str += currentDate.getFullYear();
+    }
+    str +='</span>'+
+          ((settings.enableMonthChange && settings.enableYearView) ? '<button class="next-button">'+ settings.nextButton +'</button>' : '')+
+        '</div>';
+    return str;
   }
 
   function generateMonthDOM(currentDate) {
@@ -368,6 +385,12 @@
       el.off('click', '.months-container .next-button').on('click', '.months-container .next-button', function(e) {
         currentDate = new Date(currentDate.getFullYear() + 1, 0, 1);
         settings.onClickMonthNext(currentDate);
+        renderToDom(currentDate);
+      });
+
+      el.off('change', '.months-container .year-dropdown').on('change', '.months-container .year-dropdown', function(e) {
+        var year =  $(this).val();
+        currentDate = new Date(year, 0, 1);
         renderToDom(currentDate);
       });
     }
