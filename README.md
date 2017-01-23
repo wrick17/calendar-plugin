@@ -114,7 +114,7 @@ Type of each option followd by the description of each of the options...
 
 
 `onYearSelect` - **function**
-> The function that is called when you select a year from the dropdown in the year view header. The first day of the first month of the current year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
+> The function that is called when you select a year from the dropdown in the year view header. The first day of the first month of the selected year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
 `threeMonthsInARow` - **Boolean**
