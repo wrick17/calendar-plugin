@@ -25,7 +25,7 @@
     showTodayButton: true,
     highlightSelectedWeekday: true,
     todayButtonContent: 'Today',
-    showYearDropdown: true
+    showYearDropdown: false
   }
   var el, selectedDate, yearView = false;
 
@@ -391,6 +391,7 @@
       el.off('change', '.months-container .year-dropdown').on('change', '.months-container .year-dropdown', function(e) {
         var year =  $(this).val();
         currentDate = new Date(year, 0, 1);
+        settings.onYearSelect(currentDate);
         renderToDom(currentDate);
       });
     }

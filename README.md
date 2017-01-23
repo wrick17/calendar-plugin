@@ -46,12 +46,14 @@ var options = {
   onClickYearNext: function(date){},
   onClickYearPrev: function(date){},
   onClickYearView: function(date){},
+  onYearSelect: function(date){},
   threeMonthsInARow: true,
   enableMonthChange: true,
   enableYearView: true,
   showTodayButton: true,
   highlightSelectedWeekday: true,
-  todayButtonContent: 'Today'
+  todayButtonContent: 'Today',
+  showYearDropdown: false
 }
 ```
 
@@ -111,6 +113,10 @@ Type of each option followd by the description of each of the options...
 > The function that is called when you click on the month header in the month view. The first day of the first month of the current year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
+`onYearSelect` - **function**
+> The function that is called when you select a year from the dropdown in the year view header. The first day of the first month of the current year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
+
+
 `threeMonthsInARow` - **Boolean**
 > Defaults to **true**. If set to **false**, then months will come four in a row in year view.
 
@@ -133,5 +139,10 @@ Type of each option followd by the description of each of the options...
 
 `todayButtonContent` - **String**
 > The content of the today button at the bottom. You can also put HTML string.
+
+
+`showYearDropdown` - **Boolean**
+> Defaults to **false**. If set to **true**, then you can select the year in a dropdown.
+
 
 #### That's all folks!
