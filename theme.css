@@ -42,6 +42,17 @@ h1 {
   font-weight: bold;
 }
 
+.year-dropdown {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  padding: 5px 20px;
+}
+
 .prev-button, .next-button {
   background: transparent;
   border: none;
@@ -72,7 +83,19 @@ h1 {
 }
 
 .day.today span {
-  font-size: 120%;
+  position: relative;
+  display: inline-block;
+  font-size: 110%;
+}
+.day.today span::after {
+  content: '';
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-bottom: 2px solid orange;
+  width: 10px;
+  height: 1px;
 }
 
 .day.sunday span {
