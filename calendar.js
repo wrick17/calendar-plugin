@@ -24,6 +24,7 @@
     enableYearView: true,
     showTodayButton: true,
     highlightSelectedWeekday: true,
+    highlightSelectedWeek: true,
     todayButtonContent: 'Today',
     showYearDropdown: false
   }
@@ -299,6 +300,10 @@
     }
   }
 
+  function highlightWeek() {
+    el.find('.selected').parents('.week').addClass('highlight');
+  }
+
   function renderToDom(currentDate) {
 
     var monthData = generateMonthData(currentDate);
@@ -308,7 +313,9 @@
     if (settings.highlightSelectedWeekday) {
       highlightDays();
     }
-
+    if (settings.highlightSelectedWeek) {
+      highlightWeek();
+    }
   }
 
   $.fn.calendar = function(options) {

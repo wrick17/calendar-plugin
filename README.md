@@ -52,6 +52,7 @@ var options = {
   enableYearView: true,
   showTodayButton: true,
   highlightSelectedWeekday: true,
+  highlightSelectedWeek: true,
   todayButtonContent: 'Today',
   showYearDropdown: false
 }
@@ -135,6 +136,10 @@ Type of each option followd by the description of each of the options...
 
 `highlightSelectedWeekday` - **Boolean**
 > Defaults to **true**. If set to **false**, then the selected date week day won't be highlighted.
+
+
+`highlightSelectedWeek` - **Boolean**
+> Defaults to **true**. If set to **false**, then the selected week won't be highlighted.
 
 
 `todayButtonContent` - **String**

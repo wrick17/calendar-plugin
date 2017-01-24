@@ -10,6 +10,10 @@
   overflow: hidden;
 }
 
+.week.highlight {
+  background: #efefef;
+}
+
 /* weekend */
 .week .day:first-child, .week .day:last-child {
   color: orange;

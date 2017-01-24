@@ -63,6 +63,10 @@ h1 {
   margin: 10px 0;
 }
 
+.week.highlight {
+  border-radius: 5px;
+}
+
 .weeks-wrapper.header {
   border-bottom: 1px solid #eee;
 }
