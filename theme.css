@@ -90,6 +90,17 @@ h1 {
   display: inline-block;
   font-size: 110%;
 }
+
+/* weekend */
+.week .day:first-child, .week .day:last-child {
+  color: orange;
+}
+
+/* sunday */
+.week .day:first-child {
+  color: red;
+}
+
 .day.today span::after {
   content: '';
   position: absolute;

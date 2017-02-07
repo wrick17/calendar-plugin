@@ -16,12 +16,12 @@
 
 /* weekend */
 .week .day:first-child, .week .day:last-child {
-  color: orange;
+  /*color: orange;*/
 }
 
 /* sunday */
 .week .day:first-child {
-  color: red;
+  /*color: red;*/
 }
 
 .day {
@@ -39,11 +39,11 @@
 
 /* vertical highlight */
 .week .day.highlight span {
-  color: blue;
+  /*color: blue;*/
 }
 
 .day.selected span {
-  background: orange;
+  /*background: orange;*/
 }
 
 .day.today span {
