@@ -21,17 +21,16 @@
     (function() {
 
       function selectDate(date) {
-        $('.calendar-wrapper').calendar({
-          weekDayLength: 1,
-          date: date,
-          onClickDate: selectDate
+        $('.calendar-wrapper').updateCalendarOptions({
+          date: date
         });
       }
 
       $('.calendar-wrapper').calendar({
         weekDayLength: 1,
         date: new Date(),
-        onClickDate: selectDate
+        onClickDate: selectDate,
+        showYearDropdown: true
       });
     })();
 

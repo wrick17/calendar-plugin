@@ -4,22 +4,22 @@
   todayDate.setHours(0,0,0,0);
 
   // These are the defaults.
-  var settings = {
-    date: undefined,
+  var defaults = {
+    date: null,
     weekDayLength: 1,
     prevButton: 'Prev',
     nextButton: 'Next',
     monthYearSeparator: ' ',
     onClickDate: function(date){},
-    onClickMonth: function(date){},
+    onChangeMonth: function(date){},
     onClickToday: function(date){},
     onClickMonthNext: function(date){},
     onClickMonthPrev: function(date){},
     onClickYearNext: function(date){},
     onClickYearPrev: function(date){},
-    onClickYearView: function(date){},
-    onYearSelect: function(date){},
-    threeMonthsInARow: true,
+    onShowYearView: function(date){},
+    onSelectYear: function(date){},
+    showThreeMonthsInARow: true,
     enableMonthChange: true,
     enableYearView: true,
     showTodayButton: true,
@@ -176,9 +176,9 @@
 
     for (var month in monthMap) {
       if (monthMap.hasOwnProperty(month)) {
-        var threeMonthsInARow = '';
-        threeMonthsInARow = settings.threeMonthsInARow ? ' one-third' : '';
-        str += '<span class="month'+ threeMonthsInARow +'" data-month="'+ month +'" data-year="'+ currentDate.getFullYear() +'"><span>'+ monthMap[month] +'</span></span>';
+        var showThreeMonthsInARow = '';
+        showThreeMonthsInARow = settings.showThreeMonthsInARow ? ' one-third' : '';
+        str += '<span class="month'+ showThreeMonthsInARow +'" data-month="'+ month +'" data-year="'+ currentDate.getFullYear() +'"><span>'+ monthMap[month] +'</span></span>';
       }
     }
 
@@ -305,7 +305,6 @@
   }
 
   function renderToDom(currentDate) {
-
     var monthData = generateMonthData(currentDate);
 
     el.html(generateDomString(monthData, currentDate));
@@ -318,11 +317,17 @@
     }
   }
 
+  $.fn.updateCalendarOptions = function(options) {
+    var updatedOptions = $.extend(settings, options);
+    var calendarInitFn = $.fn.calendar.bind(this);
+    calendarInitFn(updatedOptions);
+  }
+
   $.fn.calendar = function(options) {
-    settings = $.extend(settings, options);
+
+    settings = $.extend(defaults, options);
 
     el = $(this);
-
     var currentDate;
 
     if (settings.date) {
@@ -337,7 +342,6 @@
     } else {
       currentDate = todayDate;
     }
-
 
     renderToDom(currentDate);
 
@@ -366,7 +370,7 @@
       el.off('click', '.month-container').on('click', '.month-container', function(e) {
         yearView = true;
         currentDate = new Date(currentDate.getFullYear(), 0, 1);
-        settings.onClickYearView(currentDate);
+        settings.onShowYearView(currentDate);
         renderToDom(currentDate);
       });
 
@@ -375,7 +379,7 @@
         var month = monthEl.data('month');
         var year = monthEl.data('year');
         var selectedMonth = new Date(year, (month-1), 1);
-        settings.onClickMonth(selectedMonth);
+        settings.onChangeMonth(selectedMonth);
 
         currentDate = selectedMonth;
         yearView = false;
@@ -386,19 +390,21 @@
       el.off('click', '.months-container .prev-button').on('click', '.months-container .prev-button', function(e) {
         currentDate = new Date(currentDate.getFullYear() - 1, 0, 1);
         settings.onClickYearPrev(currentDate);
+        settings.onSelectYear(currentDate);
         renderToDom(currentDate);
       });
 
       el.off('click', '.months-container .next-button').on('click', '.months-container .next-button', function(e) {
         currentDate = new Date(currentDate.getFullYear() + 1, 0, 1);
         settings.onClickMonthNext(currentDate);
+        settings.onSelectYear(currentDate);
         renderToDom(currentDate);
       });
 
       el.off('change', '.months-container .year-dropdown').on('change', '.months-container .year-dropdown', function(e) {
         var year =  $(this).val();
         currentDate = new Date(year, 0, 1);
-        settings.onYearSelect(currentDate);
+        settings.onSelectYear(currentDate);
         renderToDom(currentDate);
       });
     }

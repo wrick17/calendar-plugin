@@ -19,35 +19,40 @@ Then call the calendar function on the element inside which you want your calend
 ```
 $('.calendar-wrapper').calendar();
 ```
-To use the optoinal features pass the parameters as options:
+To use the optional features pass the parameters as options:
 ```
 $('.calendar-wrapper').calendar({
   date: '05/21/2017',
   enableMonthChange: false
 });
 ```
-And you should be up and running.
+**And you should be up and running. Most of the code is pretty self explanatory.**
 
-Most of the code is pretty self explanatory.
+To update it, call the updateCalendarOptions function
+```
+$('.calendar-wrapper').updateCalendarOptions({
+  date: '05/11/2017'
+});
+```
 
 Default options go as below:
 ```
 var options = {
-  date: undefined,
+  date: null,
   weekDayLength: 1,
   prevButton: 'Prev',
   nextButton: 'Next',
   monthYearSeparator: ' ',
   onClickDate: function(date){},
-  onClickMonth: function(date){},
+  onChangeMonth: function(date){},
   onClickToday: function(date){},
   onClickMonthNext: function(date){},
   onClickMonthPrev: function(date){},
   onClickYearNext: function(date){},
   onClickYearPrev: function(date){},
-  onClickYearView: function(date){},
-  onYearSelect: function(date){},
-  threeMonthsInARow: true,
+  onShowYearView: function(date){},
+  onSelectYear: function(date){},
+  showThreeMonthsInARow: true,
   enableMonthChange: true,
   enableYearView: true,
   showTodayButton: true,
@@ -60,7 +65,7 @@ var options = {
 
 ### Options:
 
-Type of each option followd by the description of each of the options...
+Type of each option followed by the description of each of the options...
 
 `date` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
 > The date that you want to be the highlighted date when the plugin is loaded.
@@ -86,12 +91,12 @@ Type of each option followd by the description of each of the options...
 > The function that is called when any date is clicked in the month view. The date is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onClickMonth` - **function**
-> The function that is called when any month is clicked in the year view. The first day of the month is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
-
-
 `onClickToday` - **function**
 > The function that is called when you click the today button. Today's date is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
+
+
+`onChangeMonth` - **function**
+> The function that is called when any month is clicked in the year view. The first day of the month is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
 `onClickMonthNext` - **function**
@@ -102,6 +107,10 @@ Type of each option followd by the description of each of the options...
 > The function that is called when you click on the previous button in the month view. The first day of the previous month is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
+`onSelectYear` - **function**
+> The function that is called when you select a year from the dropdown in the year view header. The first day of the first month of the selected year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
+
+
 `onClickYearNext` - **function**
 > The function that is called when you click on the next button in the year view. The first day of the first month of the next year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
@@ -110,15 +119,11 @@ Type of each option followd by the description of each of the options...
 > The function that is called when you click on the previous button in the year view. The first day of the first month of the previous year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onClickYearView` - **function**
+`onShowYearView` - **function**
 > The function that is called when you click on the month header in the month view. The first day of the first month of the current year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onYearSelect` - **function**
-> The function that is called when you select a year from the dropdown in the year view header. The first day of the first month of the selected year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
-
-
-`threeMonthsInARow` - **Boolean**
+`showThreeMonthsInARow` - **Boolean**
 > Defaults to **true**. If set to **false**, then months will come four in a row in year view.
 
 
@@ -135,11 +140,11 @@ Type of each option followd by the description of each of the options...
 
 
 `highlightSelectedWeekday` - **Boolean**
-> Defaults to **true**. If set to **false**, then the selected date week day won't be highlighted.
+> Defaults to **true**. When set to **true**, all other dates with the same week-day as the selected date will be highlighted. Note that this feature will only apply to the month that the selected date is a part of.
 
 
 `highlightSelectedWeek` - **Boolean**
-> Defaults to **true**. If set to **false**, then the selected week won't be highlighted.
+> Defaults to **true**. When set to **true**, then the selected week that contains the selected date will  be highlighted.
 
 
 `todayButtonContent` - **String**
