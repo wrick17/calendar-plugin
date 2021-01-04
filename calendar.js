@@ -415,7 +415,6 @@
       settings.max.setMinutes(0);
       settings.max.setSeconds(0);
     }
-    console.log(settings);
 
     el = $(this);
     var currentDate;
