@@ -52,7 +52,8 @@ h1 {
   padding: 5px 20px;
 }
 
-.prev-button, .next-button {
+.prev-button,
+.next-button {
   background: transparent;
   border: none;
   padding: 10px;
@@ -92,7 +93,8 @@ h1 {
 }
 
 /* weekend */
-.week .day:first-child, .week .day:last-child {
+.week .day:first-child,
+.week .day:last-child {
   color: orange;
 }
 
@@ -102,7 +104,7 @@ h1 {
 }
 
 .day.today span::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 7px;
   left: 50%;
@@ -123,6 +125,11 @@ h1 {
 .week .day.selected span {
   background: #1565c0;
   color: white;
+}
+
+.week .day[disabled="disabled"] span {
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 .months-wrapper .month span {

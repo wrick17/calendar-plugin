@@ -9,11 +9,15 @@ For demo go to [https://wrick17.github.io/calendar-plugin/](https://wrick17.gith
 To initialize it, include jQuery and the calendar.js script file in your HTML.
 ```
 <script src="/dist/script/jquery.min.js"></script>
-<script src="/dist/script/calendar.js"></script>
+<script src="/dist/script/calendar.min.js"></script>
 ```
 And the CSS for the default styles
 ```
 <link rel="stylesheet" href="/style.css">
+```
+And the theme CSS for some extra flair
+```
+<link rel="stylesheet" href="/theme.css">
 ```
 Then call the calendar function on the element inside which you want your calendar pugin to put itself
 ```
@@ -59,7 +63,10 @@ var options = {
   highlightSelectedWeekday: true,
   highlightSelectedWeek: true,
   todayButtonContent: 'Today',
-  showYearDropdown: false
+  showYearDropdown: false,
+  min: null,
+  max: null,
+  disable: function (date) { return false },
 }
 ```
 
@@ -155,4 +162,25 @@ Type of each option followed by the description of each of the options...
 > Defaults to **false**. If set to **true**, then you can select the year in a dropdown.
 
 
-#### That's all folks!
+`min` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
+> The minimum date that can be selected on the calendar
+
+
+`max` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
+> The maximum date that can be selected on the calendar
+
+
+`disable` - **function**
+> This function gets called for every date block on the calendar. If this function returns true, the date will be disabled. The date of each block is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
+
+Example for disable function
+```
+$('.calendar-wrapper').updateCalendarOptions({
+  date: '05/11/2077',
+  disable: function (date) { 
+    return date < new Date(); // This will disable all dates before today
+  },
+});
+```
+
+## That's all folks!

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Calander</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="theme.css">
-  <link rel="shortcut icon" href="favicon.png">
-  <meta name="viewport" content="width=device-width">
-</head>
-<body>
-  <h1>Calendar Plugin Demo</h1>
-  <div class="calendar-wrapper"></div>
-  <footer>made with ♥ by <a target="_blank" href="https://github.com/wrick17">wrick17</a>. Check out the code in <a target="_blank" href="https://github.com/wrick17/calendar-plugin">github</a></footer>
+  <head>
+    <meta charset="utf-8">
+    <title>Calander</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme.css">
+    <link rel="shortcut icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body>
+    <h1>Calendar Plugin Demo</h1>
+    <div class="calendar-wrapper"></div>
+    <footer>made with ♥ by <a target="_blank" href="https://github.com/wrick17">wrick17</a>.
+      Check out the code in <a target="_blank"
+        href="https://github.com/wrick17/calendar-plugin">github</a></footer>
+    <script src="jquery.min.js"></script>
+    <script src="calendar.min.js"></script>
 
-  <script src="jquery.min.js"></script>
-  <script src="calendar.js"></script>
-
-  <script type="text/javascript">
+    <script type="text/javascript">
 
     (function() {
 
@@ -30,11 +31,10 @@
         weekDayLength: 1,
         date: new Date(),
         onClickDate: selectDate,
-        showYearDropdown: true
+        showYearDropdown: true,
       });
     })();
 
   </script>
-
-</body>
+  </body>
 </html>
