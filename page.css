@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin: 10vh 0;
+  padding: 0 10px;
+}
+
+main {
+  display: flex;
+  max-width: 1000px;
+  margin: auto;
+}
+
+#editor {
+  border: 1px solid #EEE;
+  flex: 1;
+  margin-left: 20px;
+  min-height: 400px;
+}
+
+.codeflask {
+  position: relative !important;
+}
+
+.calendar-wrapper {
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  border: 1px solid #eee;
+  padding: 10px;
+}
+
+footer {
+  font-size: 10px;
+  color: #777;
+  margin-top: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+  left: 0;
+}

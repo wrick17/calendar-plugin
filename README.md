@@ -1,7 +1,7 @@
 # Simple jQuery Calendar Plugin
 *A simple jQuery calendar plugin to show the date and stuff*
 
-For demo go to [https://calendar.wrick17.com/](https://calendar.wrick17.com/)
+**Demo** and **Playground** - [calendar.wrick17.com](https://calendar.wrick17.com/)
 
 **Very basic styling included. It is totally upto you to style it.**
 *Of course, so that there is almost no conflict with your own styles. The CSS is put mostly for reference*
