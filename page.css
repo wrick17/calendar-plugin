@@ -19,14 +19,31 @@ main {
 }
 
 #editor {
-  border: 1px solid #EEE;
+  border: 1px solid #eee;
   flex: 1;
   margin-left: 20px;
-  min-height: 400px;
+}
+
+@media (max-width: 992px) {
+  h1 {
+    margin: 20px 0;
+  }
+  main {
+    flex-direction: column;
+  }
+  #editor {
+    margin-left: 0;
+    margin-top: 20px;
+  }
 }
 
 .codeflask {
   position: relative !important;
+  min-height: 400px;
+}
+
+.codeflask--has-line-numbers .codeflask__flatten {
+  width: auto !important;
 }
 
 .calendar-wrapper {

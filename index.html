@@ -40,7 +40,10 @@ var defaultConfig = {
 
 $('.calendar-wrapper').calendar(defaultConfig);`;
       eval(config);
-      const flask = new CodeFlask('#editor', { language: 'js', lineNumbers: true });
+      const flask = new CodeFlask('#editor', { 
+        language: 'js', 
+        lineNumbers: true 
+      });
       flask.updateCode(config);
       flask.onUpdate((code) => {
         try {
