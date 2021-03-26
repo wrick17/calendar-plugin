@@ -62,7 +62,7 @@
 
   function getFirstDayOfMonth(currentDate) {
     var thisDate =
-      currentDate.getMonth() + 1 + " 1 " + currentDate.getFullYear();
+      currentDate.getMonth() + 1 + "/1/" + currentDate.getFullYear();
     return new Date(thisDate);
   }
 
@@ -431,6 +431,7 @@
       currentDate = todayDate;
     }
 
+    window.currentDate = currentDate;
     renderToDom(currentDate);
 
     if (settings.enableMonthChange) {
