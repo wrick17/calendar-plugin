@@ -8,8 +8,8 @@
 
 To initialize it, include jQuery and the calendar.js script file in your HTML.
 ```
-<script src="/dist/script/jquery.min.js"></script>
-<script src="/dist/script/calendar.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/calendar.min.js"></script>
 ```
 And the CSS for the default styles
 ```
