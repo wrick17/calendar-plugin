@@ -13,11 +13,11 @@ To initialize it, include jQuery and the calendar.js script file in your HTML.
 ```
 And the CSS for the default styles
 ```
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/style.css">
 ```
 And the theme CSS for some extra flair
 ```
-<link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/theme.css">
 ```
 Then call the calendar function on the element inside which you want your calendar pugin to put itself
 ```
