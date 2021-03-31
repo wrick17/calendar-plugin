@@ -95,12 +95,13 @@
     var firstDay = getFirstDayOfMonth(currentDate);
     var firstDayDate = firstDay.getDate();
     var lastDay = getLastDayOfMonth(currentDate);
-    var lastDayDate = lastDay.getDate();
     var lastDayFromLastMonth = getLastMonthLastDay(currentDate).getDate();
     var days = [];
 
-    var weekDay = firstDay.getDay();
-    var daysFromLastMonth = weekDay;
+    var daysFromLastMonth = firstDay.getDay();
+    if (settings.startOnMonday) {
+      daysFromLastMonth = daysFromLastMonth - 1;
+    }
     var daysFromNextMonth = 1;
 
     if (weekNo === 1) {
@@ -150,7 +151,6 @@
   }
 
   function generateMonthData(currentDate) {
-    var firstDay = getFirstDayOfMonth(currentDate);
     var lastMonthLast = getLastDayOfMonth(currentDate).getDate();
     var lastDayFromMonth = getLastDayOfMonth(currentDate).getDate();
     var weeks = parseInt(lastMonthLast / 7) + 1;
@@ -273,7 +273,6 @@
       0 +
       '">';
 
-    console.log(dayMap, Object.keys(dayMap));
     for (var weekDay in dayMap) {
       if (dayMap.hasOwnProperty(weekDay)) {
         str +=
