@@ -67,6 +67,7 @@ var options = {
   min: null,
   max: null,
   disable: function (date) { return false },
+  startOnMonday: false,
 }
 ```
 
