@@ -18,7 +18,7 @@ And the CSS for the default styles
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/style.css">
 ```
-And the included theme or your own for some extra flair
+Add the included theme or your own for some extra flair
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/theme.css">
 ```
