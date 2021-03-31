@@ -29,6 +29,7 @@
     min: null,
     max: null,
     disable: function (date) {},
+    startOnMonday: false,
   };
 
   var el,
@@ -58,6 +59,16 @@
     4: "thursday",
     5: "friday",
     6: "saturday",
+  };
+
+  var alternateDayMap = {
+    1: "monday",
+    2: "tuesday",
+    3: "wednesday",
+    4: "thursday",
+    5: "friday",
+    6: "saturday",
+    7: "sunday",
   };
 
   function getFirstDayOfMonth(currentDate) {
@@ -255,8 +266,14 @@
   function generateWeekHeaderDOM(currentDate) {
     var str = "";
     str += '<div class="weeks-wrapper header">';
-    str += '<div class="week" data-week-no="' + 0 + '">';
+    str +=
+      '<div class="week' +
+      (settings.startOnMonday ? " start-on-monday" : "") +
+      '" data-week-no="' +
+      0 +
+      '">';
 
+    console.log(dayMap, Object.keys(dayMap));
     for (var weekDay in dayMap) {
       if (dayMap.hasOwnProperty(weekDay)) {
         str +=
@@ -278,7 +295,12 @@
     str += '<div class="weeks-wrapper">';
 
     monthData.forEach(function (week, weekNo) {
-      str += '<div class="week" data-week-no="' + (weekNo + 1) + '">';
+      str +=
+        '<div class="week' +
+        (settings.startOnMonday ? " start-on-monday" : "") +
+        '" data-week-no="' +
+        (weekNo + 1) +
+        '">';
 
       week.forEach(function (day, dayNo) {
         var disabled = false;
@@ -403,6 +425,9 @@
 
   $.fn.calendar = function (options) {
     settings = $.extend(defaults, options);
+    if (settings.startOnMonday) {
+      dayMap = alternateDayMap;
+    }
     if (settings.min) {
       settings.min = new Date(settings.min);
       settings.min.setHours(0);

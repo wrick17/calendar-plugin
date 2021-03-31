@@ -74,13 +74,24 @@
 }
 
 /* weekend */
-.week .day:first-child,
-.week .day:last-child {
+.week:not(.start-on-monday) .day:first-child,
+.week:not(.start-on-monday) .day:last-child {
   color: orange;
 }
 
 /* sunday */
-.week .day:first-child {
+.week:not(.start-on-monday) .day:first-child {
+  color: red;
+}
+
+/* start on monday - weekend */
+.week.start-on-monday .day:nth-child(6),
+.week.start-on-monday .day:last-child {
+  color: orange;
+}
+
+/* start on monday - sunday */
+.week.start-on-monday .day:last-child {
   color: red;
 }
 

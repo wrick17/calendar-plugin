@@ -21,6 +21,7 @@
         href="https://github.com/wrick17/calendar-plugin">github</a></footer>
     <script src="https://cdn.jsdelivr.net/gh/jquery/jquery@3.2.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/calendar.min.js"></script>
+    <!-- <script src="calendar.js"></script> -->
     <script
       src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
     <script type="text/javascript">
@@ -36,6 +37,7 @@ var defaultConfig = {
   date: new Date(),
   onClickDate: selectDate,
   showYearDropdown: true,
+  startOnMonday: true,
 };
 
 $('.calendar-wrapper').calendar(defaultConfig);`;

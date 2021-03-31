@@ -183,4 +183,8 @@ $('.calendar-wrapper').updateCalendarOptions({
 });
 ```
 
+`startOnMonday` - **Boolean**
+> Defaults to **false**. If set to **true**, then the week starts on Monday.
+
+
 ## That's all folks!
