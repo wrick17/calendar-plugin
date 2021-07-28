@@ -190,5 +190,14 @@ $('.calendar-wrapper').updateCalendarOptions({
 `startOnMonday` - **Boolean**
 > Defaults to **false**. If set to **true**, then the week starts on Monday.
 
+`getSelectedDate` - **function**
+> Returns the selected [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) on the calendar.
+
+Example for getSelectedDate function
+```
+var calendar = $('#calendar-wrapper').calendar(defaultConfig);
+
+console.log(calendar.getSelectedDate());
+```
 
 ## That's all folks!

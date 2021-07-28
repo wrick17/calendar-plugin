@@ -104,18 +104,21 @@
     }
     var daysFromNextMonth = 1;
 
+
     if (weekNo === 1) {
-      for (
-        var dayFromLastMonth = daysFromLastMonth - 1;
-        dayFromLastMonth >= 0;
-        dayFromLastMonth--
-      ) {
-        var dateObj = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth() - 1,
-          lastDayFromLastMonth - dayFromLastMonth
-        );
-        days.push(dateObj);
+      var dayFromLastMonth =
+        daysFromLastMonth - 1 < 0
+          ? 6 + daysFromLastMonth
+          : daysFromLastMonth - 1;
+      if (dayFromLastMonth < 6) {
+        for (daysFromLastMonth; dayFromLastMonth >= 0; dayFromLastMonth--) {
+          var dateObj = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() - 1,
+            lastDayFromLastMonth - dayFromLastMonth
+          );
+          days.push(dateObj);
+        }
       }
 
       var daysLength = 7 - days.length;
@@ -128,7 +131,8 @@
         days.push(dateObj);
       }
     } else {
-      var startWeekFrom = (weekNo - 1) * 7 - daysFromLastMonth;
+      var startWeekFrom =
+        (weekNo - (daysFromLastMonth < 0 ? 2 : 1)) * 7 - daysFromLastMonth;
       for (var i = 1; i <= 7; i++) {
         if (startWeekFrom + i <= lastDay) {
           var dateObj = new Date(
@@ -393,7 +397,9 @@
 
       el.find(".week").each(function (i, elm) {
         $(elm)
-          .find(".day:eq(" + (weekDayNo - 0) + ")")
+          .find(
+            ".day:eq(" + (weekDayNo - (settings.startOnMonday ? 1 : 0)) + ")"
+          )
           .addClass("highlight");
       });
     }
@@ -566,10 +572,15 @@
           currentDate = todayDate;
           selectedDate = todayDate;
           settings.onClickToday(todayDate);
+          settings.onClickDate(todayDate);
           yearView = false;
           renderToDom(currentDate);
         }
       );
+    }
+
+    this.getSelectedDate = function () {
+      return selectedDate;
     }
 
     return this;

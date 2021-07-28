@@ -12,7 +12,7 @@
   <body>
     <h1>Calendar Plugin Demo</h1>
     <main>
-      <div class="calendar-wrapper"></div>
+      <div class="calendar-wrapper" id="calendar-wrapper"></div>
       <div id="editor"></div>
     </main>
     <footer>made with <span style="color: red">♥</span> by <a target="_blank"
@@ -25,22 +25,25 @@
     <script
       src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
     <script type="text/javascript">
-      var config = 
-`function selectDate(date) {
-  $('.calendar-wrapper').updateCalendarOptions({
+      var config = `
+function selectDate(date) {
+  $('#calendar-wrapper').updateCalendarOptions({
     date: date
   });
+  console.log(calendar.getSelectedDate());
 }
 
 var defaultConfig = {
   weekDayLength: 1,
-  date: new Date(),
+  date: '08-05-2021',
   onClickDate: selectDate,
   showYearDropdown: true,
   startOnMonday: true,
 };
 
-$('.calendar-wrapper').calendar(defaultConfig);`;
+var calendar = $('#calendar-wrapper').calendar(defaultConfig);
+console.log(calendar.getSelectedDate());
+`;
       eval(config);
       const flask = new CodeFlask('#editor', { 
         language: 'js', 
