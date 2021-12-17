@@ -12,10 +12,20 @@ h1 {
   padding: 0 10px;
 }
 
+h2 {
+  text-align: center;
+  margin: 5vh;
+}
+
 main {
   display: flex;
   max-width: 1000px;
   margin: auto;
+}
+
+#content {
+  margin: auto;
+  max-width: 1000px;
 }
 
 #editor {
@@ -63,4 +73,22 @@ footer {
   width: 100%;
   display: inline-block;
   left: 0;
+}
+
+#content pre {
+  background-color: #eee;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+#content code {
+  background-color: #eee;
+  padding: 0 4px;
+  line-height: 20px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#content pre code {
+  padding: 0;
 }

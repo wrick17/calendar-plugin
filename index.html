@@ -15,9 +15,10 @@
       <div class="calendar-wrapper" id="calendar-wrapper"></div>
       <div id="editor"></div>
     </main>
+    <div id="content"></div>
     <footer>made with <span style="color: red">♥</span> by <a target="_blank"
         href="https://github.com/wrick17">wrick17</a>.
-      Check out the code and docs in <a target="_blank"
+      Check out the code in <a target="_blank"
         href="https://github.com/wrick17/calendar-plugin">github</a></footer>
     <script src="jquery.min.js"></script>
     <script src="calendar.min.js"></script>
@@ -55,6 +56,20 @@ console.log(calendar.getSelectedDate());
           eval(code);
         } catch(e) {}
       });
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script defer>
+      fetch('https://raw.githubusercontent.com/wrick17/calendar-plugin/master/README.md')
+        .then(response => response.text())
+        .then(function(text) {
+          const docs = text.split('**DOCS**')[1];
+          document.getElementById('content').innerHTML = `
+          <div>
+            <h2>DOCS</h2>
+            ${marked.parse(docs)}
+          <div>
+          `;
+        });
     </script>
   </body>
 </html>

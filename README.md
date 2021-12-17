@@ -5,9 +5,10 @@
 
 ![image](https://user-images.githubusercontent.com/8253932/113132795-8ca13400-923c-11eb-9c0a-5287e67e88d6.png)
 
+**DOCS**
 
 **Very basic styling included. It is totally upto you to style it.**
-*Of course, so that there is almost no conflict with your own styles. The CSS is put mostly for reference*
+(*Of course, so that there is almost no conflict with your own styles. The CSS is put mostly for reference*)
 
 To initialize it, include jQuery and the calendar.js script file in your HTML.
 ```
@@ -18,7 +19,7 @@ And the CSS for the default styles
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/style.css">
 ```
-Add the included theme or your own for some extra flair
+Add the included theme (or your own) for some extra flair
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wrick17/calendar-plugin@master/theme.css">
 ```
@@ -253,6 +254,5 @@ console.log(calendar.getSelectedDate());
 }
 ```
 
----
 
 ## That's all folks!
