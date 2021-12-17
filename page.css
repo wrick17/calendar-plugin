@@ -53,7 +53,7 @@ main {
 }
 
 .codeflask--has-line-numbers .codeflask__flatten {
-  width: auto !important;
+  /* width: auto !important; */
 }
 
 .calendar-wrapper {
@@ -79,6 +79,7 @@ footer {
   background-color: #eee;
   padding: 8px;
   border-radius: 4px;
+  overflow-y: auto;
 }
 
 #content code {
