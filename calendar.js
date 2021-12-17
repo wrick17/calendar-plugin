@@ -2,40 +2,6 @@
   var todayDate = new Date();
   todayDate.setHours(0, 0, 0, 0);
 
-  // These are the defaults.
-  var defaults = {
-    date: null,
-    weekDayLength: 1,
-    prevButton: "Prev",
-    nextButton: "Next",
-    monthYearSeparator: " ",
-    onClickDate: function (date) {},
-    onChangeMonth: function (date) {},
-    onClickToday: function (date) {},
-    onClickMonthNext: function (date) {},
-    onClickMonthPrev: function (date) {},
-    onClickYearNext: function (date) {},
-    onClickYearPrev: function (date) {},
-    onShowYearView: function (date) {},
-    onSelectYear: function (date) {},
-    showThreeMonthsInARow: true,
-    enableMonthChange: true,
-    enableYearView: true,
-    showTodayButton: true,
-    highlightSelectedWeekday: true,
-    highlightSelectedWeek: true,
-    todayButtonContent: "Today",
-    showYearDropdown: false,
-    min: null,
-    max: null,
-    disable: function (date) {},
-    startOnMonday: false,
-  };
-
-  var el,
-    selectedDate,
-    yearView = false;
-
   var monthMap = {
     1: "january",
     2: "february",
@@ -71,6 +37,43 @@
     7: "sunday",
   };
 
+  // These are the defaults.
+  var defaults = {
+    date: null,
+    weekDayLength: 1,
+    prevButton: "Prev",
+    nextButton: "Next",
+    monthYearSeparator: " ",
+    onClickDate: function (date) {},
+    onChangeMonth: function (date) {},
+    onClickToday: function (date) {},
+    onClickMonthNext: function (date) {},
+    onClickMonthPrev: function (date) {},
+    onClickYearNext: function (date) {},
+    onClickYearPrev: function (date) {},
+    onShowYearView: function (date) {},
+    onSelectYear: function (date) {},
+    showThreeMonthsInARow: true,
+    enableMonthChange: true,
+    enableYearView: true,
+    showTodayButton: true,
+    highlightSelectedWeekday: true,
+    highlightSelectedWeek: true,
+    todayButtonContent: "Today",
+    showYearDropdown: false,
+    min: null,
+    max: null,
+    disable: function (date) {},
+    startOnMonday: false,
+    monthMap,
+    dayMap,
+    alternateDayMap,
+  };
+
+  var el,
+    selectedDate,
+    yearView = false;
+
   function getFirstDayOfMonth(currentDate) {
     var thisDate =
       currentDate.getMonth() + 1 + "/1/" + currentDate.getFullYear();
@@ -103,7 +106,6 @@
       daysFromLastMonth = daysFromLastMonth - 1;
     }
     var daysFromNextMonth = 1;
-
 
     if (weekNo === 1) {
       var dayFromLastMonth =
@@ -221,8 +223,8 @@
     var str = "";
     str += '<div class="months-wrapper">';
 
-    for (var month in monthMap) {
-      if (monthMap.hasOwnProperty(month)) {
+    for (var month in settings.monthMap) {
+      if (settings.monthMap.hasOwnProperty(month)) {
         var showThreeMonthsInARow = "";
         showThreeMonthsInARow = settings.showThreeMonthsInARow
           ? " one-third"
@@ -235,7 +237,7 @@
           '" data-year="' +
           currentDate.getFullYear() +
           '"><span>' +
-          monthMap[month] +
+          settings.monthMap[month] +
           "</span></span>";
       }
     }
@@ -253,7 +255,7 @@
         : "") +
       '<span class="label-container month-container">' +
       '<span class="month-label">' +
-      monthMap[currentDate.getMonth() + 1] +
+      settings.monthMap[currentDate.getMonth() + 1] +
       "</span>" +
       settings.monthYearSeparator +
       '<span class="year-label">' +
@@ -277,13 +279,15 @@
       0 +
       '">';
 
-    for (var weekDay in dayMap) {
-      if (dayMap.hasOwnProperty(weekDay)) {
+    for (var weekDay in settings.dayMap) {
+      if (settings.dayMap.hasOwnProperty(weekDay)) {
         str +=
           '<div class="day header" data-day="' +
           weekDay +
           '">' +
-          dayMap[weekDay].substring(0, settings.weekDayLength) +
+          (typeof settings.formatWeekDay === "function"
+            ? settings.formatWeekDay(weekDay)
+            : settings.dayMap[weekDay].substring(0, settings.weekDayLength)) +
           "</div>";
       }
     }
@@ -344,7 +348,9 @@
           '" ' +
           dateDisabled +
           " ><span>" +
-          day.getDate() +
+          (typeof settings.formatDate === "function"
+            ? settings.formatDate(day)
+            : day.getDate()) +
           "</span></div>";
       });
 
@@ -431,7 +437,7 @@
   $.fn.calendar = function (options) {
     settings = $.extend(defaults, options);
     if (settings.startOnMonday) {
-      dayMap = alternateDayMap;
+      settings.dayMap = settings.alternateDayMap;
     }
     if (settings.min) {
       settings.min = new Date(settings.min);
@@ -581,7 +587,7 @@
 
     this.getSelectedDate = function () {
       return selectedDate;
-    }
+    };
 
     return this;
   };

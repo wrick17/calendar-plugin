@@ -200,4 +200,59 @@ var calendar = $('#calendar-wrapper').calendar(defaultConfig);
 console.log(calendar.getSelectedDate());
 ```
 
+`formatWeekDay` - **function**
+> This function can be used to pass a custom function to format the week day. The week day is passed as a parameter to the function as a javascript number to according to the `dayMap` or `alternateDayMap` and it should return a `string` to be shown in the calender's week header.
+
+`formatDate` - **function**
+> This function can be used to pass a custom function to format date. The date is passed as a parameter to the function as a javascript javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object and it should return the date `string` to be shown in the calendar.
+
+`monthMap` - **Object**
+> This  object is used to map the month number to a string. Very useful for translations. The default is as follows
+```javascript
+{
+  1: "january",
+  2: "february",
+  3: "march",
+  4: "april",
+  5: "may",
+  6: "june",
+  7: "july",
+  8: "august",
+  9: "september",
+  10: "october",
+  11: "november",
+  12: "december",
+}
+```
+
+`dayMap` - **Object**
+> This  object is used to map the week number to a string. Very useful for translations. The default is as follows
+```javascript
+{
+  0: "sunday",
+  1: "monday",
+  2: "tuesday",
+  3: "wednesday",
+  4: "thursday",
+  5: "friday",
+  6: "saturday",
+}
+```
+
+`alternateDayMap` - **Object**
+> This  object is used to map the week number to a string when monday is the start of the week. Very useful for translations. The default is as follows
+```javascript
+{
+  1: "monday",
+  2: "tuesday",
+  3: "wednesday",
+  4: "thursday",
+  5: "friday",
+  6: "saturday",
+  7: "sunday",
+}
+```
+
+---
+
 ## That's all folks!
