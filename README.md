@@ -254,5 +254,4 @@ console.log(calendar.getSelectedDate());
 }
 ```
 
-
 ## That's all folks!
