@@ -102,8 +102,7 @@ ul li {
   margin-bottom: 8px;
 }
 
-ul a,
-ul a:visited {
+a, a:visited {
   color: rgb(34, 110, 252);
   text-decoration: none;
 }
