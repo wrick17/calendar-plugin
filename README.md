@@ -324,11 +324,11 @@ customDateProps: (date) => ({
 
 Example for `customDateHeaderProps` function
 ```javascript
-customDateHeaderProps: (date) => ({
-  classes: 'date-element date-element-custom',
+customDateHeaderProps: (weekDay) => ({
+  classes: 'date-header-element date-header-element-custom',
   data: {
-    type: 'date',
-    form: 'date-object'
+    type: 'date-header',
+    form: 'date-header-element'
   }
 })
 ``` 
@@ -346,11 +346,11 @@ customDateHeaderProps: (date) => ({
 
 Example for `customWeekProps` function
 ```javascript
-customWeekProps: (date) => ({
-  classes: 'date-element date-element-custom',
+customWeekProps: (weekNo) => ({
+  classes: 'week-day-element week-day-element-custom',
   data: {
-    type: 'date',
-    form: 'date-object'
+    type: 'week-day',
+    form: 'week-day-element'
   }
 })
 ``` 
