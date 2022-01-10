@@ -102,7 +102,25 @@ ul li {
   margin-bottom: 8px;
 }
 
-ul a, ul a:visited {
+ul a,
+ul a:visited {
   color: rgb(34, 110, 252);
   text-decoration: none;
+}
+
+blockquote {
+  position: relative;
+  margin-left: 24px;
+  margin-right: 0;
+}
+
+blockquote::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 0;
+  background: #eee;
+  height: 100%;
+  width: 5px;
+  border-radius: 2px;
 }
