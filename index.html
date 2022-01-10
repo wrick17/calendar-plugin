@@ -21,8 +21,8 @@
       Check out the code in <a target="_blank"
         href="https://github.com/wrick17/calendar-plugin">github</a></footer>
     <script src="jquery.min.js"></script>
-    <!-- <script src="calendar.min.js"></script> -->
-    <script src="calendar.js"></script>
+    <script src="calendar.min.js"></script>
+    <!-- <script src="calendar.js"></script> -->
     <script
       src="https://unpkg.com/codeflask/build/codeflask.min.js"></script>
     <script type="text/javascript">
@@ -40,27 +40,6 @@ var defaultConfig = {
   onClickDate: selectDate,
   showYearDropdown: true,
   startOnMonday: false,
-  customDateProps: (date) => ({
-    classes: 'date-element date-element-custom',
-    data: {
-      type: 'date',
-      form: 'date-element'
-    }
-  }),
-  customDateHeaderProps: (weekDay) => ({
-    classes: 'date-header-element date-header-element-custom',
-    data: {
-      type: 'date-header',
-      form: 'date-header-element'
-    }
-  }),
-  customWeekProps: (weekNo) => ({
-    classes: 'week-day-element week-day-element-custom',
-    data: {
-      type: 'week-day',
-      form: 'week-day-element'
-    }
-  }),
 };
 
 var calendar = $('#calendar-wrapper').calendar(defaultConfig);
