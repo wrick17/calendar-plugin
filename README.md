@@ -109,9 +109,9 @@ var options = {
 - [`monthMap` - **Object**](#monthmap---object)
 - [`dayMap` - **Object**](#daymap---object)
 - [`alternateDayMap` - **Object**](#alternatedaymap---object)
-- [`customDateProps` = **Function**](#customdateprops--function)
-- [`customDateHeaderProps` = **Function**](#customdateheaderprops--function)
-- [`customWeekProps` = **Function**](#customweekprops--function)
+- [`customDateProps` - **Function**](#customdateprops---function)
+- [`customDateHeaderProps` - **Function**](#customdateheaderprops---function)
+- [`customWeekProps` - **Function**](#customweekprops---function)
 ---
 Type of each option followed by the description of each of the options...
 #### `date` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
@@ -289,7 +289,7 @@ console.log(calendar.getSelectedDate());
 }
 ```
 
-#### `customDateProps` = **Function**
+#### `customDateProps` - **Function**
 > This function can be used to pass custom classes and data attributes to the date elements. The date is passed as a parameter to the function as a javascript javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object and it should return an object with custom classes and data attributes as following.
 ```javascript
 {
@@ -311,7 +311,7 @@ customDateProps: (date) => ({
 })
 ``` 
 
-#### `customDateHeaderProps` = **Function**
+#### `customDateHeaderProps` - **Function**
 > This function can be used to pass custom classes and data attributes to the week day header elements. The week day number is passed as a parameter to the function as a `Number` and it should return an object with custom classes and data attributes as following.
 ```javascript
 {
@@ -333,7 +333,7 @@ customDateHeaderProps: (date) => ({
 })
 ``` 
 
-#### `customWeekProps` = **Function**
+#### `customWeekProps` - **Function**
 > This function can be used to pass custom classes and data attributes to the week elements. The week number is passed as a parameter to the function as a `Number` and it should return an object with custom classes and data attributes as following.
 ```javascript
 {
