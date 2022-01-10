@@ -53,6 +53,15 @@
     onClickYearPrev: function (date) {},
     onShowYearView: function (date) {},
     onSelectYear: function (date) {},
+    customDateProps: function (date) {
+      return { classes: "", data: {} };
+    },
+    customDateHeaderProps: function (weekDay) {
+      return { classes: "", data: {} };
+    },
+    customWeekProps: function (weekNo) {
+      return { classes: "", data: {} };
+    },
     showThreeMonthsInARow: true,
     enableMonthChange: true,
     enableYearView: true,
@@ -270,21 +279,44 @@
   }
 
   function generateWeekHeaderDOM(currentDate) {
+    const { classes: weekClasses, data: weekData } =
+      settings.customWeekProps(0);
+    let dataStr = "";
+    if (Object.keys(weekData)) {
+      Object.keys(weekData).forEach((item) => {
+        dataStr += ` data-${item}="${weekData[item]}" `;
+      });
+    }
+
     var str = "";
     str += '<div class="weeks-wrapper header">';
     str +=
       '<div class="week' +
       (settings.startOnMonday ? " start-on-monday" : "") +
+      (weekClasses ? " " + weekClasses : "") +
       '" data-week-no="' +
       0 +
-      '">';
+      '"' +
+      dataStr +
+      ">";
 
     for (var weekDay in settings.dayMap) {
       if (settings.dayMap.hasOwnProperty(weekDay)) {
+        const { classes, data } = settings.customDateHeaderProps(weekDay);
+        let dataStr = "";
+        if (Object.keys(data)) {
+          Object.keys(data).forEach((item) => {
+            dataStr += ` data-${item}="${data[item]}" `;
+          });
+        }
         str +=
-          '<div class="day header" data-day="' +
+          '<div class="day header' +
+          (classes ? " " + classes : "") +
+          '" data-day="' +
           weekDay +
-          '">' +
+          '"' +
+          dataStr +
+          "  >" +
           (typeof settings.formatWeekDay === "function"
             ? settings.formatWeekDay(weekDay)
             : settings.dayMap[weekDay].substring(0, settings.weekDayLength)) +
@@ -302,12 +334,22 @@
     str += '<div class="weeks-wrapper">';
 
     monthData.forEach(function (week, weekNo) {
+      const { classes, data } = settings.customWeekProps(weekNo);
+      let dataStr = "";
+      if (Object.keys(data)) {
+        Object.keys(data).forEach((item) => {
+          dataStr += ` data-${item}="${data[item]}" `;
+        });
+      }
       str +=
         '<div class="week' +
         (settings.startOnMonday ? " start-on-monday" : "") +
+        (classes ? " " + classes : "") +
         '" data-week-no="' +
         (weekNo + 1) +
-        '">';
+        '"' +
+        dataStr +
+        ">";
 
       week.forEach(function (day, dayNo) {
         var disabled = false;
@@ -338,14 +380,24 @@
           dateDisabled = 'disabled="disabled" ';
         }
 
+        const { classes, data } = settings.customDateProps(day);
+        let dataStr = "";
+        if (Object.keys(data)) {
+          Object.keys(data).forEach((item) => {
+            dataStr += ` data-${item}="${data[item]}" `;
+          });
+        }
+
         str +=
           '<div class="day' +
           disabled +
           selected +
           today +
+          (classes ? " " + classes : "") +
           '" data-date="' +
           day +
           '" ' +
+          dataStr +
           dateDisabled +
           " ><span>" +
           (typeof settings.formatDate === "function"

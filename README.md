@@ -76,109 +76,144 @@ var options = {
 ```
 
 ### Options:
-
+---
+- [`date` - **Date** / **String**](#date---date--string)
+- [`weekDayLength` - **Number**](#weekdaylength---number)
+- [`prevButton` - **String**](#prevbutton---string)
+- [`nextButton` - **String**](#nextbutton---string)
+- [`monthYearSeparator` - **String**](#monthyearseparator---string)
+- [`onClickDate` - **function**](#onclickdate---function)
+- [`onClickToday` - **function**](#onclicktoday---function)
+- [`onChangeMonth` - **function**](#onchangemonth---function)
+- [`onClickMonthNext` - **function**](#onclickmonthnext---function)
+- [`onClickMonthPrev` - **function**](#onclickmonthprev---function)
+- [`onSelectYear` - **function**](#onselectyear---function)
+- [`onClickYearNext` - **function**](#onclickyearnext---function)
+- [`onClickYearPrev` - **function**](#onclickyearprev---function)
+- [`onShowYearView` - **function**](#onshowyearview---function)
+- [`showThreeMonthsInARow` - **Boolean**](#showthreemonthsinarow---boolean)
+- [`enableMonthChange` - **Boolean**](#enablemonthchange---boolean)
+- [`enableYearView` - **Boolean**](#enableyearview---boolean)
+- [`showTodayButton` - **Boolean**](#showtodaybutton---boolean)
+- [`highlightSelectedWeekday` - **Boolean**](#highlightselectedweekday---boolean)
+- [`highlightSelectedWeek` - **Boolean**](#highlightselectedweek---boolean)
+- [`todayButtonContent` - **String**](#todaybuttoncontent---string)
+- [`showYearDropdown` - **Boolean**](#showyeardropdown---boolean)
+- [`min` - **Date** / **String**](#min---date--string)
+- [`max` - **Date** / **String**](#max---date--string)
+- [`disable` - **function**](#disable---function)
+- [`startOnMonday` - **Boolean**](#startonmonday---boolean)
+- [`getSelectedDate` - **function**](#getselecteddate---function)
+- [`formatWeekDay` - **function**](#formatweekday---function)
+- [`formatDate` - **function**](#formatdate---function)
+- [`monthMap` - **Object**](#monthmap---object)
+- [`dayMap` - **Object**](#daymap---object)
+- [`alternateDayMap` - **Object**](#alternatedaymap---object)
+- [`customDateProps` = **Function**](#customdateprops--function)
+- [`customDateHeaderProps` = **Function**](#customdateheaderprops--function)
+- [`customWeekProps` = **Function**](#customweekprops--function)
+---
 Type of each option followed by the description of each of the options...
-
-`date` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
+#### `date` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
 > The date that you want to be the highlighted date when the plugin is loaded.
 
 
-`weekDayLength` - **Number**
+#### `weekDayLength` - **Number**
 > The Number of characters of the week day that you want to show on the header
 
 
-`prevButton` - **String**
+#### `prevButton` - **String**
 > The content of the previous button in the header to change month or year. You can also put HTML string.
 
 
-`nextButton` - **String**
+#### `nextButton` - **String**
 > The content of the next button in the header to change month or year. You can also put HTML string.
 
 
-`monthYearSeparator` - **String**
+#### `monthYearSeparator` - **String**
 > The string you want to put in between the month and the year in the month view. You can also put HTML string.
 
 
-`onClickDate` - **function**
+#### `onClickDate` - **function**
 > The function that is called when any date is clicked in the month view. The date is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onClickToday` - **function**
+#### `onClickToday` - **function**
 > The function that is called when you click the today button. Today's date is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onChangeMonth` - **function**
+#### `onChangeMonth` - **function**
 > The function that is called when any month is clicked in the year view. The first day of the month is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onClickMonthNext` - **function**
+#### `onClickMonthNext` - **function**
 > The function that is called when you click on the next button in the month view. The first day of the next month is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onClickMonthPrev` - **function**
+#### `onClickMonthPrev` - **function**
 > The function that is called when you click on the previous button in the month view. The first day of the previous month is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onSelectYear` - **function**
+#### `onSelectYear` - **function**
 > The function that is called when you select a year from the dropdown in the year view header. The first day of the first month of the selected year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onClickYearNext` - **function**
+#### `onClickYearNext` - **function**
 > The function that is called when you click on the next button in the year view. The first day of the first month of the next year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onClickYearPrev` - **function**
+#### `onClickYearPrev` - **function**
 > The function that is called when you click on the previous button in the year view. The first day of the first month of the previous year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`onShowYearView` - **function**
+#### `onShowYearView` - **function**
 > The function that is called when you click on the month header in the month view. The first day of the first month of the current year is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
 
-`showThreeMonthsInARow` - **Boolean**
+#### `showThreeMonthsInARow` - **Boolean**
 > Defaults to **true**. If set to **false**, then months will come four in a row in year view.
 
 
-`enableMonthChange` - **Boolean**
+#### `enableMonthChange` - **Boolean**
 > Defaults to **true**. If set to **false**, then you won't be able to change either month or year.
 
 
-`enableYearView` - **Boolean**
+#### `enableYearView` - **Boolean**
 > Defaults to **true**. If set to **false**, then you won't be able to go to the year view. You can only change the month using the next or previous buttons in the month view.
 
 
-`showTodayButton` - **Boolean**
+#### `showTodayButton` - **Boolean**
 > Defaults to **true**. If set to **false**, then the today button won't be visible.
 
 
-`highlightSelectedWeekday` - **Boolean**
+#### `highlightSelectedWeekday` - **Boolean**
 > Defaults to **true**. When set to **true**, all other dates with the same week-day as the selected date will be highlighted. Note that this feature will only apply to the month that the selected date is a part of.
 
 
-`highlightSelectedWeek` - **Boolean**
+#### `highlightSelectedWeek` - **Boolean**
 > Defaults to **true**. When set to **true**, then the selected week that contains the selected date will  be highlighted.
 
 
-`todayButtonContent` - **String**
+#### `todayButtonContent` - **String**
 > The content of the today button at the bottom. You can also put HTML string.
 
 
-`showYearDropdown` - **Boolean**
+#### `showYearDropdown` - **Boolean**
 > Defaults to **false**. If set to **true**, then you can select the year in a dropdown.
 
 
-`min` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
+#### `min` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
 > The minimum date that can be selected on the calendar
 
 
-`max` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
+#### `max` - **[Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date)** / **String**
 > The maximum date that can be selected on the calendar
 
 
-`disable` - **function**
+#### `disable` - **function**
 > This function gets called for every date block on the calendar. If this function returns true, the date will be disabled. The date of each block is passed as a parameter to the function as a javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object.
 
-Example for disable function
+Example for `disable` function
 ```
 $('.calendar-wrapper').updateCalendarOptions({
   date: '05/11/2077',
@@ -188,26 +223,26 @@ $('.calendar-wrapper').updateCalendarOptions({
 });
 ```
 
-`startOnMonday` - **Boolean**
+#### `startOnMonday` - **Boolean**
 > Defaults to **false**. If set to **true**, then the week starts on Monday.
 
-`getSelectedDate` - **function**
+#### `getSelectedDate` - **function**
 > Returns the selected [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) on the calendar.
 
-Example for getSelectedDate function
+Example for `getSelectedDate` function
 ```
 var calendar = $('#calendar-wrapper').calendar(defaultConfig);
 
 console.log(calendar.getSelectedDate());
 ```
 
-`formatWeekDay` - **function**
+#### `formatWeekDay` - **function**
 > This function can be used to pass a custom function to format the week day. The week day is passed as a parameter to the function as a javascript number to according to the `dayMap` or `alternateDayMap` and it should return a `string` to be shown in the calender's week header.
 
-`formatDate` - **function**
+#### `formatDate` - **function**
 > This function can be used to pass a custom function to format date. The date is passed as a parameter to the function as a javascript javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object and it should return the date `string` to be shown in the calendar.
 
-`monthMap` - **Object**
+#### `monthMap` - **Object**
 > This  object is used to map the month number to a string. Very useful for translations. The default is as follows
 ```javascript
 {
@@ -226,7 +261,7 @@ console.log(calendar.getSelectedDate());
 }
 ```
 
-`dayMap` - **Object**
+#### `dayMap` - **Object**
 > This  object is used to map the week number to a string. Very useful for translations. The default is as follows
 ```javascript
 {
@@ -240,7 +275,7 @@ console.log(calendar.getSelectedDate());
 }
 ```
 
-`alternateDayMap` - **Object**
+#### `alternateDayMap` - **Object**
 > This  object is used to map the week number to a string when monday is the start of the week. Very useful for translations. The default is as follows
 ```javascript
 {
@@ -253,5 +288,71 @@ console.log(calendar.getSelectedDate());
   7: "sunday",
 }
 ```
+
+#### `customDateProps` = **Function**
+> This function can be used to pass custom classes and data attributes to the date elements. The date is passed as a parameter to the function as a javascript javascript [Date](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date) object and it should return an object with custom classes and data attributes as following.
+```javascript
+{
+  classes: 'custom-class',
+  data: {
+    custom: 'custom-data,
+  }
+}
+```
+
+Example for `customDateProps` function
+```javascript
+customDateProps: (date) => ({
+  classes: 'date-element date-element-custom',
+  data: {
+    type: 'date',
+    form: 'date-object'
+  }
+})
+``` 
+
+#### `customDateHeaderProps` = **Function**
+> This function can be used to pass custom classes and data attributes to the week day header elements. The week day number is passed as a parameter to the function as a `Number` and it should return an object with custom classes and data attributes as following.
+```javascript
+{
+  classes: 'custom-class',
+  data: {
+    custom: 'custom-data,
+  }
+}
+```
+
+Example for `customDateHeaderProps` function
+```javascript
+customDateHeaderProps: (date) => ({
+  classes: 'date-element date-element-custom',
+  data: {
+    type: 'date',
+    form: 'date-object'
+  }
+})
+``` 
+
+#### `customWeekProps` = **Function**
+> This function can be used to pass custom classes and data attributes to the week elements. The week number is passed as a parameter to the function as a `Number` and it should return an object with custom classes and data attributes as following.
+```javascript
+{
+  classes: 'custom-class',
+  data: {
+    custom: 'custom-data,
+  }
+}
+```
+
+Example for `customWeekProps` function
+```javascript
+customWeekProps: (date) => ({
+  classes: 'date-element date-element-custom',
+  data: {
+    type: 'date',
+    form: 'date-object'
+  }
+})
+``` 
 
 ## That's all folks!
