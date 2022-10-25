@@ -50,6 +50,7 @@ var options = {
   weekDayLength: 1,
   prevButton: 'Prev',
   nextButton: 'Next',
+  monthYearOrder: 'my',
   monthYearSeparator: ' ',
   onClickDate: function(date){},
   onChangeMonth: function(date){},
@@ -81,6 +82,7 @@ var options = {
 - [`weekDayLength` - **Number**](#weekdaylength---number)
 - [`prevButton` - **String**](#prevbutton---string)
 - [`nextButton` - **String**](#nextbutton---string)
+- [`monthYearOrder` - **String**](#monthyearorder---string)
 - [`monthYearSeparator` - **String**](#monthyearseparator---string)
 - [`onClickDate` - **function**](#onclickdate---function)
 - [`onClickToday` - **function**](#onclicktoday---function)
@@ -128,6 +130,10 @@ Type of each option followed by the description of each of the options...
 
 #### `nextButton` - **String**
 > The content of the next button in the header to change month or year. You can also put HTML string.
+
+
+#### `monthYearOrder` - **string**
+> The order of the month and the year in the month view. The letter 'm' represents month and the letter 'y' represents year. You can combine the letters to set the order of them. For examples, 'my' is for month and year, and 'ym' is for year and month.
 
 
 #### `monthYearSeparator` - **String**
