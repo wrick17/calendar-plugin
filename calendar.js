@@ -43,6 +43,7 @@
     weekDayLength: 1,
     prevButton: "Prev",
     nextButton: "Next",
+    monthYearOrder: "my",
     monthYearSeparator: " ",
     onClickDate: function (date) {},
     onChangeMonth: function (date) {},
@@ -256,6 +257,31 @@
   }
 
   function generateMonthHeaderDOM(currentDate) {
+    let monthYearLabels = [];
+    let monthYearLabel = '';
+
+    for (i of settings.monthYearOrder.toLowerCase()) {
+      switch (i) {
+        case 'm':
+          monthYearLabels.push(
+            '<span class="month-label">' +
+            settings.monthMap[currentDate.getMonth() + 1] +
+            "</span>"
+          );
+          break;
+
+        case 'y':
+          monthYearLabels.push(
+            '<span class="year-label">' +
+            currentDate.getFullYear() +
+            "</span>"
+          );
+          break;
+      }
+    }
+
+    monthYearLabel = monthYearLabels.join(settings.monthYearSeparator);
+
     return (
       "" +
       '<div class="buttons-container">' +
@@ -263,13 +289,7 @@
         ? '<button class="prev-button">' + settings.prevButton + "</button>"
         : "") +
       '<span class="label-container month-container">' +
-      '<span class="month-label">' +
-      settings.monthMap[currentDate.getMonth() + 1] +
-      "</span>" +
-      settings.monthYearSeparator +
-      '<span class="year-label">' +
-      currentDate.getFullYear() +
-      "</span>" +
+      monthYearLabel +
       "</span>" +
       (settings.enableMonthChange
         ? '<button class="next-button">' + settings.nextButton + "</button>"
